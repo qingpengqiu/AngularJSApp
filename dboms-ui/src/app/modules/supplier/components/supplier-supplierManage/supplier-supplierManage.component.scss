@@ -1,0 +1,103 @@
+.m-boardtop{
+   .m-btn-download{
+    line-height: 35px;
+    margin-right: 15px;
+   } 
+}
+.i-search{
+  height: 34px;
+  line-height: 34px;
+}
+
+//列表页样式
+.m-supplierList{
+  margin: 15px 22px 0;
+
+//顶部功能按钮
+.m-operation{
+  overflow: hidden;
+  margin-top: 15px;
+
+  .m-supplierManage-top-button{
+    float: left;
+    width: 89px;
+    margin-right: 15px;
+  }
+
+  .m-at-search{
+    float: right;
+    width: 30%;
+  }
+
+}
+
+.m-supplier-noresult{
+  margin: 10px 0 0;    
+  /*height: 550px;*/
+ 
+}
+.m-apply {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 2px;
+  cursor: pointer;
+  min-height: calc(92vh - 150px);
+}
+
+.isHide{
+  display: none;
+}
+
+.notClickButton{//顶部按钮不能点击样式
+  background-color: #d2d8e0 !important;
+}
+
+.table thead > tr > th {
+  padding: 5px 8px 8px;
+  line-height: 18px;
+  white-space: nowrap;
+  vertical-align: inherit;
+}
+
+.m-supplier-button-modify{//修改按钮样式
+  color: #57b9f8;
+  background: none;
+  border:none;
+}
+
+.m-supplier-button-modify:hover{//修改按钮样式
+  color: #377ca1;
+  background: none;
+  border:none;
+}
+
+.unEdit{
+  border: none;
+}
+
+.isEditStyle{
+  border: 1px solid #E2E3EB;
+  height: 28px;
+  width: 91%;
+}
+
+.m-iqon-edit{
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.m-p-fontOverflow{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  width:210px;
+  color:#57b9f8;
+}
+
+
+
+}
+
+

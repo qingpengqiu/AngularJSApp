@@ -1,0 +1,55 @@
+<div class="container">
+  <h3>toasty 演示页面</h3>
+  <form>
+    <div class="row">
+      <div class="col-4 columns">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input class="form-control" type="text" id="title" [(ngModel)]="options.title" name="title">
+        </div>
+        <div class="form-group">
+          <label for="msg">Message</label>
+          <input class="form-control" type="text" id="msg" [(ngModel)]="options.msg" name="msg">
+        </div>
+        <div class="form-group">
+          <label for="theme">Type</label>
+          <select class="form-control" [(ngModel)]="options.type" name="type">
+                  <option *ngFor="let type of types" [value]="type.code">{{type.name}}</option>
+                </select>
+        </div>
+        <div class="form-group">
+          <label for="theme">Position</label>
+          <select class="form-control" [(ngModel)]="options.position" name="position">
+                  <option *ngFor="let pos of positions" [value]="pos.code">{{pos.name}}</option>
+                </select>
+        </div>
+        <div class="form-group">
+          <label for="timeout">Timeout</label>
+          <input type="text" class="form-control" id="timeout" [(ngModel)]="options.timeout" placeholder="5000" name="timeout" />
+        </div>
+
+      </div>
+      <div class="col-4 columns">
+        <label for="showclose">Show Close Icon</label>
+        <input type="checkbox" id="showclose" [(ngModel)]="options.showClose" name="showClose" />
+      </div>
+      <div class="col-4 columns">
+        <pre>
+<code>toastyService<span ng-if="options.type != 'default'">.{{ options.type }}</span>({{ '{' }}
+    title: "{{ options.title }}",
+    msg: "{{ options.msg }}",
+    showClose: {{ options.showClose }},
+    position: "{{ options.position }}",
+    timeout: {{ options.timeout || false }},
+    theme: "{{ options.theme }}"
+{{ '}' }});
+</code>
+                </pre>
+      </div>
+    </div>
+    <button class="btn btn-default" style="margin-right: 10px;" (click)="clearToasties()">Clear All</button>
+    <button class="btn btn-info" style="width: 100px;" (click)="newToast()">Add</button>
+    <button class="btn btn-info" style="width: 150px;" (click)="newCountdownToast()">Countdown</button>
+    <div class="u-cf"></div>
+  </form>
+</div>

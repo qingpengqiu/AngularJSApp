@@ -1,0 +1,216 @@
+// component css goes here
+.m-home-menu{
+	  display: flex;
+	  height: 49px;
+	  width: 210px;
+	  margin: auto;
+	  justify-content: space-around;
+	  line-height: 49px;
+	  border-bottom: 1px solid #e1e3eb;
+	  div{
+	 	  width: 38px;
+		  text-align: center;
+		    color: #9196a0;
+	  }
+	  .m-active{
+		  border-bottom: 3px solid #63b9f0;
+		  font-weight: 600;
+		  color: #4a4a4a;
+	  }
+}
+.m-crumb{
+	font-size: 12px;
+	ul {
+		display: flex;
+	li{
+		position: relative;
+		a{
+		  text-align: center;
+		  height: 49px;
+		  color: #a8b1bd;
+  	      font-weight: 100;
+		}
+		.m-num{
+		  top: 17px;
+		  font-size: 12px;
+		  right: -17px;
+		  width: 20px;
+		}
+	} 
+	}
+	.m-li-active{
+	  border-bottom: 4px solid #57aef8;
+	  color: #57aef8;
+	}
+}
+.m-crumb > ul > li::after {
+  display: none;
+  }
+  .m-search-all{
+  	.m-seach-radio{
+  		display: inline-block;
+  		label{
+  			    margin: 0 21px 0 8px;
+  		}
+  	}
+  }
+  .m-table-right{
+    padding: 1px 15px !important;
+	  .iqon-query{
+	    background: #57b9f8;
+	  }
+	  .m-p-notice{
+	  	  font-size: 16px;
+	  }
+  }
+  .m-table-right::before{
+	display: none !important;
+  }
+   .m-table-right::after{
+	display: none !important;
+  }
+  .m-list-singlebox{
+	border-radius: 2px;
+    background-color: #ffffff;
+	border: solid 1px #eeeeee;
+	margin: 15px 0;
+	.top{
+	  display: flex;
+	  height: 40px;
+	  line-height: 40px;
+	  justify-content: flex-end;
+	  padding: 0 20px;
+	  background-color: #f5f7fa;
+	}
+	.topleft{
+	  flex: 1;
+	}
+	.bottom{
+	  display: flex;
+	  justify-content: space-between;
+	  padding:20px;
+	    font-size: 12px;
+	    color:#4a4a4a;
+	    .bottomname{
+	    	font-size:14px;
+	    }
+	}
+	.m-page{
+		  width: 187px;
+		  .pagebox{
+		  	display: flex;
+		  	div{
+		  		  width: 50px;
+				  margin-right: 8px;
+				  display: flex;
+				  justify-content: space-between;
+		  	}
+		  	.pagebox-span{
+		  	flex:1;
+		  	}
+		  }
+	}
+  }
+.marginr30{
+	  margin-right:30px;
+}
+.marginr8{
+	  margin-right:8px;
+}
+.m-bottom-gray{
+color:#a8b1bd
+}
+.m-bottom-black{
+color:#4a4a4a!important;
+}
+.m-bottom-fontweight{
+    font-weight: 700!important;
+}
+.m-list-menu{
+	    margin: 15px;
+}
+.m-btn-main-2{
+	padding:0 30px;
+}
+.color-yelow{
+	color:#ef9051;
+}
+.color-green{
+	color:#ef9051;
+}
+.fontsize14{
+	font-size:14px;
+}
+.m-noresult{
+	height:470px;
+}
+.m-scan{
+    background-color: transparent;
+    margin: 15px;
+    padding: 0;
+	 .m-scan-item {
+	 h6{
+	 font-weight:700;
+	 }
+	    float: left;
+	    width: 33.3%;
+	    padding-top: 15px;
+	}
+	.m-scan-itemcenter{
+		width: 100%;
+	    text-align: center;
+	}
+	.m-scan-head{
+	    padding: 25px;
+	    border-radius: 2px;
+	    background-color: #f5f7fa;
+	    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
+	        margin-bottom: 15px;
+	}
+	.m-scan-body{
+	    background-color: #fff;
+	}
+	.m-scan-logo{
+	    background-color: #57b9f8;
+	}
+	.m-scan-default{
+		margin:0!important;
+		padding: 81px 0;
+	}
+	.m-scan .m-scan-body 
+	.m-scan-default {
+		h3{
+		    margin: 19px 0;
+		}
+	}
+}
+.smallcenter{
+	 line-height: 34px;
+}
+.width48{
+	width:48px;
+}
+.marginr25{
+	margin-right: 25px;
+}
+.m-scan .m-scan-body .m-scan-default h3{
+	margin:19px 0;
+}
+.m-beyond{
+	    line-height: 34px;
+    font-size: 14px;
+    i{
+        margin: 0 10px;
+    }
+}
+.m-btn-excel{
+    color: #4a4a4a;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: solid 1px #e1e3eb;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+}
+.m-scan .m-scan-item input.xs{
+	    width: 25%;
+}

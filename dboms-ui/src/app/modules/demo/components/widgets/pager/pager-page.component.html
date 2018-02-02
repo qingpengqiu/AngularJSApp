@@ -1,0 +1,56 @@
+<div class="frame-wrap">
+  <div class="header">
+    <pre>
+    说明：
+    1、页面初始化-分页器调用change方法，请求后台数据、初始化分页数据——简化自己调用、请求pageSize过程
+    2、触发按钮 调用change方法 分页组件示例
+      <code>
+        {{"<"}}iq-pager [data]="data" (onChange)="onChange($event)"{{">"}}
+        {{"<" + "/iq-pager>"}}
+      </code>
+    3、 data 分页对象
+      <code>
+    {{ '{' }}
+      pageSize //大小
+      pageNo  //页码
+      totalElements
+      totalPage //总计页数
+    {{ '}' }}
+      </code>
+    4、onChange 查询方法
+    </pre>
+  </div>
+  <br><br> 随便一个pager <br>
+  <iq-pager [data]="pagerData0" (onChange)="onChangePager0($event)"></iq-pager>
+  <br> <br> <br> 同一个pager: <br>
+  <div style="width:60%">
+    <iq-pager [data]="pagerData1" (onChange)="onChangePager1($event)"></iq-pager>
+
+    <table class="table table-hover table-list">
+      <thead>
+        <tr>
+          <td>
+            <input icheck="" type="checkbox" ng-reflect-model="false" class="ng-untouched ng-pristine ng-valid" style="position: absolute; opacity: 0;">
+          </td>
+          <th>序号</th>
+          <th>申请日期</th>
+          <th>申请人</th>
+          <th>类型</th>
+          <th>当前状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list1">
+          <td></td>
+          <td>{{item.id}}</td>
+          <td>{{item.applyDate | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.apply}}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <iq-pager [data]="pagerData1" (onChange)="onChangePager1($event)"></iq-pager>
+  </div>
+</div>

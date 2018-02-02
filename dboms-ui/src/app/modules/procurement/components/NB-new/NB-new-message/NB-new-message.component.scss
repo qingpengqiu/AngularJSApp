@@ -1,0 +1,23 @@
+.addApp-form-item {
+    .addApp-form-time{
+        display:inline-block; 
+        padding: 0;
+        border: none;
+    }
+}
+.padSpan{
+    padding-left: 15px;
+    font-size: 12px;
+    line-height: 2.67;
+}
+.iqSelect{
+    display:inline-block;      
+    width: 83%;
+    margin-left: 10px;
+}
+.DataVendor {
+    /deep/ 
+    .m-option .m-option-list {
+	    width: 840px;
+    }
+}

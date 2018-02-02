@@ -1,0 +1,205 @@
+<div class="content-auto">
+  <loading [show]="submiting"></loading>
+  <div>
+    <div class="addApply-container">
+      <h1 class="addApply-tit-h1">新建合同采购申请</h1>
+      <!--基本信息-->
+      <div class="addApply-base">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">基础信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list">
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label">申请人</label>
+                <div style="margin-left:10px;">
+                  <div class="m-user-info" user-image [hasClose]="false" [user]="userInfo"></div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>联系方式</label>
+                <input class="addApp-form-input" type="text" [(ngModel)]="saveData.phone">
+              </div>
+            </li>
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>所属平台</label>
+                <ng-select class="addApp-form-input m-select-box" [items]="selectInfo.plateInfo" required name="plateform" ngModel 
+                  (selected)="getPlateform($event)" [active]=avtivePlate [(ngModel)]=avtivePlate></ng-select>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--采购信息-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <contractApply-submit-message (baseSaveData)="baseSaveData($event)" (submitMassageRes)="submitMassageRes($event)" [PurchaseRequisitionSaleContractListSTR]=PurchaseRequisitionSaleContractListSTR
+          (companycode)="companycode($event)"  (IsRMBData)="IsRMBData($event)" (isCore)="isCore($event)" (TaxrateData)="TaxrateData($event)" [saveData]=baseMassage (FacVend)="FacVend($event)"></contractApply-submit-message>
+        </div>
+      </div>
+      <!--采购清单-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购清单</span>
+          <div class="list-explain">
+            <span>是否直接写入ERP</span>
+            <label class="label-first">
+              <input type="radio" name="directly" [(ngModel)]="saveData.istoerp" #directly="ngModel" value="true" icheck [disabled]="erpIsDisable" (onClick)="directlyChange($event)">
+              是
+            </label>
+            <label>
+              <input type="radio" name="directly" [(ngModel)]="saveData.istoerp" #directly="ngModel" value="false" icheck [disabled]="erpIsDisable" (onClick)="directlyChange($event)">
+              否
+            </label>
+            <span>（同步维护采购清单后，审批人审批通过将直接写入ERP）</span>
+          </div>
+          <i class="iqon-fold" (click)="procurementListShow=!procurementListShow"></i>
+        </div>
+        <div class="addApp-base-infor" *ngIf="procurementListShow">
+          <contractApply-submit-list [purchaseData]="purchaseData" [rate]="GetTaxrateData" [factory]="saveData.factory" [vendor]="saveData.vendor"
+            [purchaseRequisitioIid]="saveData.purchaserequisitionid"
+            (onPurchaseDataChange)="onPurchaseDataChange($event)"
+            (purchaseFormValidChange)="purchaseFormValidChange($event)"></contractApply-submit-list>
+        </div>
+      </div>
+      <!--销售信息-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">销售信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <contractApply-submit-sell (sellList)="sellList($event)" [currencyArr]="currencyArr" [IsRMB]=IsRMB [GetTaxrateData]=GetTaxrateData [BackPurchaseList]=BackPurchaseList
+            [PurchaseRequisitionSaleContractListData]=PurchaseRequisitionSaleContractListData></contractApply-submit-sell>
+        </div>
+      </div>
+      <!--支持文件-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">支持文件</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list accessory-content">
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label">上传附件</label>
+                <div class="accessory-item">
+                  <iq-file-upload upType="1" [url]="supportDocumentUrl" maxFileSize="5242880" maxFileNum="10"
+                    (onSuccess)="onUploadBack($event,1)" (onDeleteItem)="onDeleteItem($event,1)" [hasUploaded]="AccessorySee_one"></iq-file-upload>
+                </div>
+              </div>
+            </li>
+            <li class="file-tip-box">
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"></label>
+                <div class="file-tip">
+                  <span>上传不能超过10个文件，每个文件大小5M</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--采购合同用印文件-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购合同用印文件</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list">
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>用印金额</label>
+                <input class="addApp-form-input" type="text" [(ngModel)]="saveData.sealmoney">
+              </div>
+            </li>
+          </ul>
+          <ul class="addApp-base-list accessory-content" style="margin-top:0">
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips" *ngIf="isOutsourcing" >*</i>上传附件</label>
+                <div class="accessory-item">
+                   <iq-file-upload upType="1" [url]="contractPrintUrl" 
+                  (onSuccess)="onUploadBack($event,2)" (onDeleteItem)="onDeleteItem($event,2)" [hasUploaded]="AccessorySee_two"></iq-file-upload>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--修改记录-->
+      <div class="addApply-base money" *ngIf="RequisitionRecord.length>0">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">修改记录</span>
+        </div>
+        <div class="addApp-base-infor">
+          <div class="fix-table-content">
+            <table class="m-info-table w100 mt10">
+              <thead>
+                <tr class="m-infor-tr">
+                  <th>申请单号</th>
+                  <th>申请日期</th>
+                  <th>申请人</th>
+                  <th>我方主体</th>
+                  <th>供应商</th>
+                  <th>含税总金额</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of RequisitionRecord;index as i">
+                  <td (click)="viewContractApply(item.ID)">
+                    <a>{{item.RequisitionNum}}</a>
+                  </td>
+                  <td>{{item.AddTime | iqDate:'YYYY-MM-DD'}}</td>
+                  <td>{{item.UserName}}</td>
+                  <td>{{item.Own}}</td>
+                  <td>{{item.Vendor}}</td>
+                  <td>{{item.Amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="page">
+              <iq-pager [data]="pagerData" (onChange)="onChangePage($event,1)"></iq-pager>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--审批人信息-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">审批人信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list accessory-content">
+            <li>
+              <prepare-person min="1" max="4" text="级预审" defaultNum="1" (onChange)="getChange($event)" [personList]=personList></prepare-person>
+              <ul class="repare-list">
+                <li *ngFor="let item of personArr;index as i" >
+                  <p>{{item.NodeName}}</p>
+                  <div class="uls">
+                    <div *ngFor="let x of item.userData;index as n">
+                      <div class="m-user-info" user-image [hasClose]="false" [user]="x"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div> 
+      </div>
+    </div>
+    <div class="addApp-submit-btn">
+      <div class="addApp-sub-btns">
+        <button class="m-btn-confirm" type="button" (click)="saveContractApply('提交')">提交</button>
+        <button class="m-btn-more-big" type="button" (click)="saveContractApply('草稿')">暂存</button>
+        <a (click)="closeWindow()"><button class="m-btn-addAppback">取消</button></a>
+      </div>
+    </div>
+  </div>
+</div>

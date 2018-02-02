@@ -1,0 +1,131 @@
+<div class="m-home-pageR clearfix">
+<!--菜单-->
+                <div class="m-boardtop clearfix">
+                    <div class="m-crumb">
+                        <ul>我的位置：
+                            <li><a>DCG业务管理平台&nbsp;-</a></li>
+                            <li><a>&nbsp;库存管理&nbsp;-</a></li>
+                            <li><a class="m-bottom-black m-bottom-fontweight">&nbsp;在库明细查询</a></li>
+                        </ul>
+                    </div>
+                    <div class="m-dropdown g-fr">
+                        <button class="m-btn-main-2">+ 新建申请</button>
+                        <ul class="m-dropdown-option">
+                            <li>
+                                <i class="iqon-direct-right"></i>
+                                <a [routerLink]="['/bill/creat']" style="color:#4cc9a7">新建申请</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/bill/return-new']" style="color:#4cc9a7">新建退换货申请</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="m-dropdown g-fr">
+                        <button class="m-btn-main-2 m-btn-excel">Excel导出</button>
+                    </div>
+                </div>
+     <div class="m-scan">
+              <div class="m-scan-head">
+                <div class="m-scan-item">
+                  <h6>暂存类别</h6>
+                  <div class="m-select">
+                    <i class="iqon-xia"></i>
+                    <select [ngModel]="selectclassid" (ngModelChange)="selectchange($event)">
+					    <option *ngFor="let item of data" [value]='item.id'>{{item.value}}</option>  
+					</select>
+                  </div>
+                </div>
+                <div class="m-scan-item">
+                  <h6>客户名称</h6>
+                  <div class="m-select">
+                    <i class="iqon-xia"></i>
+                    <select>
+                      <option>111</option>
+                      <option>222</option>
+                      <option>333</option>
+                      <option>444</option>
+                      <option>555</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="m-scan-item">
+                  <h6>归属平台</h6>
+                  <div class="m-select">
+                    <i class="iqon-xia"></i>
+                    <select>
+                      <option>111</option>
+                      <option>222</option>
+                      <option>333</option>
+                      <option>444</option>
+                      <option>555</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="m-scan-item">
+                  <h6>归属本部</h6>
+                  <div class="m-select">
+                    <i class="iqon-xia"></i>
+                    <select>
+                      <option>111</option>
+                      <option>222</option>
+                      <option>333</option>
+                      <option>444</option>
+                      <option>555</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="m-scan-item">
+                  <h6>事业部</h6>
+                  <div class="m-select">
+                    <i class="iqon-xia"></i>
+                    <select>
+                      <option>111</option>
+                      <option>222</option>
+                      <option>333</option>
+                      <option>444</option>
+                      <option>555</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="m-scan-item">
+                	<h6>是否已清账：</h6>
+                	<div class="small smallcenter">
+		              <input icheck type="radio" id="radio1" name="gender" checked>
+		              <label for="radio1" class="marginr25">是</label>
+		              <input icheck type="radio" id="radio2" name="gender">
+		              <label for="radio2">否</label>
+		            </div>
+                </div>
+				<div class="m-scan-item m-scan-item2">
+                  <h6>暂存金额</h6>
+                  <input class="xs" type="text" placeholder="0"> ~ <input class="xs" type="text" placeholder="999999">
+                </div>
+                <div class="m-scan-item m-scan-item2">
+                  <h6>暂存天数</h6>
+                  <input class="xs" type="text" placeholder="0"> ~ <input class="xs" type="text" placeholder="365">
+                </div>
+				<div class="m-scan-item m-scan-item2">
+                  <h6>超期天数</h6>
+                  <div class="m-beyond">
+	                  <span>{{beyond1}}</span>
+	                  <i class="iqon-eachother" style="cursor:pointer" (click)="rechange()"></i>
+	                  <span>{{beyond2}}</span>
+                  </div>
+                </div>
+                <div class="m-scan-item m-scan-item2 m-scan-itemcenter">
+                  <button class="m-btn-prev" (click)="seach()">搜索</button>
+                  <button class="m-btn-cancel" (click)="reset()">重置</button>
+                  <!-- <button class="m-btn-cancel" (click)="export()">导出EXCEL</button> -->
+                </div>
+              </div>
+              <div class="m-scan-body">
+                <div class="m-scan-default">
+                  <div class="m-scan-logo">
+                    <i class="iqon-stack"></i>
+                  </div>
+                  <h3>搜索结果为空</h3>
+                  <h4>快去切换查询条件进行入库查询吧~~</h4>
+                </div>
+              </div>
+            </div>
+</div>	

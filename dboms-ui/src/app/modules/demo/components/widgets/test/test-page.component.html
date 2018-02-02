@@ -1,0 +1,25 @@
+<div>
+  <div class="">
+    -------------<br>
+    -------------<br>
+    -------------<br>
+    -------------<br>
+  </div>
+
+  {{ list | json }}
+  {{ list1 | json }}
+  <!-- <ul>
+    <li *ngFor="let item of list;let i=index;">
+      <input type="text" [(ngModel)]="list[i]">
+    </li>
+  </ul> -->
+  <br>
+    <iq-person-select [list]="list1">
+    </iq-person-select>
+
+    <iq-person-select [list]="list" [max]="1">
+    </iq-person-select>
+
+    <br>
+    <br>
+</div>

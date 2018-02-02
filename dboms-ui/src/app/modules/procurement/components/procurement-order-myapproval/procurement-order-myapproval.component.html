@@ -1,0 +1,257 @@
+<div class="m-overclass">
+  <div class="m-list-menu">
+    <ul class="m-state">
+      <li [ngClass]="{'active' : query.TaskStatus==0 }" (click)="onTab(0)">待我审批</li>
+      <li [ngClass]="{'active' : query.TaskStatus==1 }" (click)="onTab(1)">我已审批</li>
+      <li [ngClass]="{'active' : query.TaskStatus==2 }" (click)="onTab(2)">全部</li>
+    </ul>
+
+    <div class="m-search-all" [ngClass]="{'hide': highSearchShow}">
+      <div class="m-search-high" (click)="highSearchShow=true">
+        <i class="iqon-highsearch"></i> 高级搜索
+      </div>
+    </div>
+
+    <!-- 高级搜索 -->
+    <div class="m-search-open" [ngClass]="{'hide': !highSearchShow}" (click)="highSearchShow = false">
+      收起高级搜索
+    </div>
+    <div class="m-search-more" [ngClass]="{'hide': !highSearchShow}">
+      <div class="form">
+        <div class="m-search-item">
+          <label>本部</label>
+          <ng-select class="addApp-form-input" name="taxrate" [items]="selector.Platform" placeholder="请选择" (selected)=getPlatform($event)></ng-select>
+        </div>
+        <div class="m-search-item">
+          <label>事业部</label>
+          <ng-select class="addApp-form-input" name="taxrate" (click)=getSYBMC($event) [items]="selector.Busform" placeholder="请选择"></ng-select>
+        </div>
+        <div class="m-search-item">
+          <div class="m-search-item-title">
+            <label>申请人</label>
+          </div>
+          <div class="m-search-item-person">
+            <iq-person-select name="person" #person="ngModel" [(ngModel)]="myApply.person" [max]="1" ngDefaultControl (ngModelChange)="selectedPerson($event)"></iq-person-select>
+          </div>
+        </div>
+        <div class="m-search-item">
+          <label>需求跟踪号</label>
+          <input [(ngModel)]="query.TraceNo" type="text">
+        </div>
+        <div class="m-search-item">
+          <label>采购订单类型</label>
+          <div class="m-select">
+            <i class="iqon-xia"></i>
+            <select [(ngModel)]="query.OrderType">
+                      <option value="">全部</option>
+                      <option value="NB">NB</option>
+                      <option value="NA">NA</option>
+                      <option value="NK">NK</option>
+                    </select>
+          </div>
+        </div>
+        <div class="m-search-item">
+          <label>申请单号</label>
+          <input [(ngModel)]="query.OrderNum" type="text">
+        </div>
+        <div class="m-search-item">
+          <label>供应商名称</label>
+          <input [(ngModel)]="query.Vendor" type="text">
+        </div>
+        <div class="m-search-item">
+          <label>采购订单号</label>
+          <input [(ngModel)]="query.OrderNum" type="text">
+        </div>
+        <div class="m-search-item"></div>
+        <div class="m-search-item m-search-items">
+          <label>申请日期</label>
+          <div class="m-datepicker-comb">
+            <div class="m-datepicker-start">
+              <my-datepicker [(ngModel)]="query.StartAddTime" format="YYYY-MM-DD" [EndDate]="query.EndAddTime" PlaceHolder="-请选择开始日期" name="BeginDate"></my-datepicker>
+            </div> ~
+            <div class="m-datepicker-end">
+              <my-datepicker [(ngModel)]="query.EndAddTime" format="YYYY-MM-DD" [StartDate]="query.StartAddTime" PlaceHolder="-请选择结束日期" name="EndDate"></my-datepicker>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-search-btn">
+          <button type="button" class="m-btn-confirm research" (click)="search()">搜索</button>
+          <button type="button" class="m-btn-default resets" (click)=reset()>重置</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 物料数据列表 -->
+  <div class="m-card-cont">
+    <div class="m-noresult" [ngClass]="{'hide':searchList && searchList.length > 0}">
+          <loading [show]="loading"></loading>
+           <!-- 数据缺省 -->
+          <div class="m-noresult-msg">
+              <i class="iqon-query"></i>
+              <p class="m-noresult-notice">暂无相关数据</p>
+              <p class="m-p-notice">点击“新建”新建数据吧~</p>
+          </div>
+    </div>
+    <div [ngClass]="{'hide':searchList && searchList.length == 0}">
+      <!-- 1-待我审批列表 -->
+      <div *ngIf="query.TaskStatus==0">
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+              </th>
+              <th class="wp10">采购订单类型</th>
+              <th class="wp25">我方主体</th>
+              <th class="wp25">供应商</th>
+              <th class="wp15">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp10">当前环节</th>
+              <th class="wp10">
+                申请日期
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index"  (click)=routerJump(0,list.taskTableURL)>
+              <td class="wp15" title={{list.PurchaseOrderNum}}>
+                {{ list.PurchaseOrderNum }}
+              </td>
+              <td class="wp10">
+                {{ list.PurchaseOrderType }}
+              </td>
+              <td class="wp25" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp25" title={{list.Vendor}}>
+                {{ list.Vendor }}
+              </td>
+              <td class="wp15" title={{list.TraceNo}}>
+                {{ list.TraceNo }}
+              </td>
+              <td class="wp10">
+                {{ list.TaxInclusiveMoney }}
+              </td>
+              <td class="wp10">
+                {{ list.currentapprove }}
+              </td>
+              <td class="wp10">
+                {{ list.applydate | iqDate:'YYYY-MM-DD'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="query.TaskStatus==1">
+        <!-- 2-我已审批 -->
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+              </th>
+              <th class="wp10">采购订单类型</th>
+              <th class="wp25">我方主体</th>
+              <th class="wp25">供应商</th>
+              <th class="wp10">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp10">当前环节</th>
+              <th class="wp15">当前审批人</th>
+              <th class="wp15">
+                申请日期
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index" (click)="routerJump(1,list.PurchaseOrderId)">
+                {{list.ID}}
+              <td class="wp15" title={{list.PurchaseOrderNum}}>
+                {{ list.PurchaseOrderNum }}
+              </td>
+              <td class="wp10">
+                {{ list.PurchaseOrderType }}
+              </td>
+              <td class="wp25" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp25" title={{list.Vendor}}>
+                {{ list.Vendor }}
+              </td>
+              <td class="wp10" title={{list.TraceNo}}>
+                {{ list.TraceNo }}
+              </td>
+              <td class="wp10">
+                {{ list.TaxInclusiveMoney }}
+              </td>
+              <td class="wp10">
+                {{ list.currentapprove }}
+              </td>
+              <td class="wp15" title={{list.currentapproveId}}>
+                  {{ list.currentapproveId }}
+              </td>
+              <td class="wp15">
+                {{ list.applydate | iqDate:'YYYY-MM-DD'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="query.TaskStatus==2">
+        <!-- 3-全部 -->
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+              </th>
+              <th class="wp10">采购订单类型</th>
+              <th class="wp25">我方主体</th>
+              <th class="wp25">供应商</th>
+              <th class="wp10">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp10">当前环节</th>
+              <th class="wp10">当前审批人</th>
+              <th class="wp15">
+                申请日期
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index" (click)=routerJump(2,list.PurchaseOrderId)>
+              <td class="wp15" title={{list.PurchaseOrderNum}}>
+                {{ list.PurchaseOrderNum }}
+              </td>
+              <td class="wp10">
+                {{ list.PurchaseOrderType }}
+              </td>
+              <td class="wp25" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp25" title={{list.Vendor}}>
+                {{ list.Vendor }}
+              </td>
+              <td class="wp10" title={{list.TraceNo}}>
+                {{ list.TraceNo }}
+              </td>
+              <td class="wp10">
+                {{ list.TaxInclusiveMoney }}
+              </td>
+              <td class="wp10">
+                {{ list.currentapprove }}
+              </td>
+              <td class="wp10" title={{list.currentapproveId}}>
+                  {{ list.currentapproveId }}
+              </td>
+              <td class="wp15">
+                {{ list.applydate | iqDate:'YYYY-MM-DD'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <iq-pager [data]="pagerData" (onChange)="onChangePager($event)"></iq-pager>
+    </div>
+  </div>
+</div>

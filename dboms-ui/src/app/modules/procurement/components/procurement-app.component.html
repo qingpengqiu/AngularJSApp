@@ -1,0 +1,26 @@
+<div class="g-hdp">
+
+    <div class="g-list"> 
+        <ul class="m-usertree">
+           <li routerLinkActive="active">     
+              <a routerLink="/procurement/procurement-apply">采购申请</a>
+           </li>
+           <li routerLinkActive="active">
+               <a routerLink="/procurement/procurement-order">采购订单</a>
+           </li>
+           <li routerLinkActive="active">
+               <a routerLink="/procurement/procurementTpl-list">采购模板</a>
+           </li>
+           <li class="hide" routerLinkActive="active">
+                <a routerLink="/procurement/procurement-orderModify">采购订单修改</a>
+            </li>
+        </ul>
+    </div>
+
+     <div class="g-right">
+        <router-outlet></router-outlet> 
+     </div>
+    
+</div>
+
+

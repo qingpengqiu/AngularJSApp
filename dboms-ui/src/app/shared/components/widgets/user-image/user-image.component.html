@@ -1,0 +1,4 @@
+<user-image-head [user]="Obj" *ngIf="hasImg"></user-image-head>
+<span class="m-user-name">{{Obj?.userCN}}</span>
+<span class="m-user-ename">{{Obj?.userEN}}</span>
+<i class="iqon-close" (click)="closeClick()" *ngIf="hasClose"></i>

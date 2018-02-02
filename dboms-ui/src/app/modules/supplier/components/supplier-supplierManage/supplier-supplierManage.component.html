@@ -1,0 +1,95 @@
+<div class="m-boardtop clearfix">
+  <iq-breadcrumb></iq-breadcrumb>
+  <button type="button" class="m-btn-success g-fr" style="margin-top: 7px;" (click)="addData()">
+    <i class="iqon-add"></i>新建供应商</button>
+  <button type="button" class="m-btn-default g-fr m-btn-download" style="margin-top: 7px;">下载数据</button>
+
+</div>
+
+<!-- 列表页 -->
+<div class="m-supplierList">
+
+  <form #form="ngForm">
+    <!-- 搜索&&扩展&&分类&&同步 功能按钮 -->
+    <div class="m-operation">
+
+      <button class="m-supplierManage-top-button m-btn-confirm" [disabled]="notSelect" [ngClass]="{'notClickButton':notSelect}" (click)="extendClassSupplier('extend')">扩展</button>
+      <button class="m-supplierManage-top-button m-btn-confirm" [disabled]="notSelect" [ngClass]="{'notClickButton':notSelect}" (click)="extendClassSupplier('class')">分类</button>
+      <button class="m-supplierManage-top-button m-btn-confirm" [disabled]="notSelect" [ngClass]="{'notClickButton':notSelect}">同步</button>
+
+      <!-- 搜索 -->
+      <div class="m-at-search">
+        <div class="m-search">
+          <div class="m-search-2">
+            <i class="iqon-query i-search" (click)="searchData()"></i>
+            <input type="text" name="SearchTxt" #SearchTxt="ngModel" placeholder="搜索供应商号/供应商名称" [(ngModel)]="supplierList.SearchTxt" (keyup)="enterSearch($event)">
+            <!-- <p class="m-p-warn" *ngIf="Keyword.invalid && (Keyword.touched||isSearch)">请填写搜索供应商号或者供应商名称</p> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 供应商缺省页面 -->
+    <div class="m-noresult m-supplier-noresult m-apply" [ngClass]="{'isHide':isSearchResult}">
+      <div class="m-noresult-msg">
+        <i class="iqon-query"></i>
+        <p class="m-noresult-notice">暂无相关数据</p>
+        <p class="m-p-notice">点击“新建供应商”建立相关数据吧~</p>
+      </div>
+    </div>
+
+    <!--搜索结果显示-->
+    <div class="m-card-cont" [ngClass]="{'isHide':!isSearchResult}" style="backgroud-color:#fff">
+      <div class="table-auto-content">
+        <loading [show]="loading"></loading>
+        <table class="table table-hover table-list">
+          <thead>
+            <tr>
+              <th class="wp5">
+                <input allcheck="demoall" [(ngModel)]="fullChecked" [indeterminate]="fullCheckedIndeterminate" (onCount)="checkedNum = $event"
+                  (onIndeterminate)="CheckIndeterminate($event)" icheck type="checkbox" name="fullChecked" (ngModelChange)="topButtonControl()">
+              </th>
+              <th class="wp10">供应商编号</th>
+              <th class="wp15">供应商名称</th>
+              <th class="wp10">供应商类型</th>
+              <th class="wp15">增值税号或统一<br>社会信用代码</th>
+              <th class="wp20">注册地址</th>
+              <th class="wp20">我的关注</th>
+              <th class="wp5" style="text-align:center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let list of searchList;let i=index">
+              <td stopParentClick>
+                <input allcheckChild="demoall" [(ngModel)]="list.checked" icheck type="checkbox" name="demoall" (ngModelChange)="getSelectList(list.checked,list.Id)">
+              </td>
+              <td>{{list.vendorno}}</td>
+              <td>{{list.vendor}}</td>
+              <td>{{list.vendorcountry}}</td>
+              <td>{{list.valueaddedtaxno}}</td>
+              <td>{{list.registeredaddress}}</td>
+              <td stopParentClick>
+                  <p (dblclick)="EditMyAtt(i)" class="m-p-fontOverflow">
+                    <span *ngIf="list.unEdit" [title]="list.MyContent">{{list.MyContent}}</span>
+                    <input type="text" [ngClass]="{isEditStyle:!unEdit}" class="unEdit" [(ngModel)]="list.MyContent" name="MyContent" *ngIf="!list.unEdit" (blur)="setMyAtt(i)">
+                  </p>
+              </td>
+              <td stopParentClick><button class="m-supplier-button-modify">修改</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="page">
+        <iq-pager [data]="pagerData" (onChange)="onChangePage($event)"></iq-pager>
+      </div>
+    </div>
+
+
+  </form>
+
+</div>

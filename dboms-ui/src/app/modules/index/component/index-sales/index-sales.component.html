@@ -1,0 +1,227 @@
+<div class="index-content">
+    <!-- 洽谈 -->
+    <ul class="nav-block clearfix">
+      <li *ngFor="let item of navConfig.nav_head" (mouseenter)="item.slideState = 'in'">
+        <!-- 为了mouse进去进去问题加的盒子 -->
+        <div (mouseleave)="item.slideState = 'out'">
+          <div class="nav-block-list">
+            <i class="{{item.iqon}}"></i>
+            <div class="nav-block-right">
+              <p class="title">{{item.title}}</p>
+              <p class="enter">快速新建入口</p>
+            </div>
+          </div>
+          <div class="nav-down" [@shrinkOut]="item.slideState">
+            <ul>
+              <li *ngFor="let nav of item.list" [class.open]="nav.isOpen === 'open'" (click)="nav.isOpen = nav.isOpen==='close'?'open':'close'">
+                <ng-container *ngIf="!nav.children">
+                  <a [routerLink]="nav.notComplete?undefined:nav.url" [class.not-complete]="nav.notComplete">{{nav.title}}</a>
+                </ng-container>
+                <ng-container *ngIf="nav.children">
+                  <a href="javascript:;">{{nav.title}}</a>
+                  <i class="iqon-angle-right"></i>
+                  <ul [@shrinkOutC]="nav.isOpen" stopParentClick>
+                    <li *ngFor="let child of nav?.children" [routerLink]="child.notComplete?undefined:child.url" [class.not-complete]="child.notComplete">{{child.name}}</li>
+                  </ul>
+                </ng-container>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- 我的订单 -->
+    <div class="my-order-info">
+        <div class="my-order-head">
+            <span class="my-order-title"><i class="iqon-report"></i>我的订单</span>
+            <span class='my-order-all'>全部</span>
+        </div>
+        <div class="my-order-content">
+            <ul class="clearfix">
+                <li>待盖章<span class="m-num">5</span></li>
+                <li>待备货<span class="m-num">5</span></li>
+                <li>待开销售<span class="m-num">5</span></li>
+                <li>配送中<span class="m-num">5</span></li>
+                <li>待回款<span class="m-num">5</span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 表格 -->
+    <div class="my-order-table">
+        <div class="my-order-table-left">
+            <div class="my-order-head">
+                <span class="my-order-title"><i class="iqon-report"></i>销售额</span>
+                <span class='my-order-all my-order-sm'>203,955,543.00元</span>
+            </div>
+        </div>
+        <div class="my-order-table-right">
+            <div class="my-order-head">
+                <span class="my-order-title"><i class="iqon-report"></i>钱到账</span>
+                <span class='my-order-all'>全部</span>
+            </div>
+            <div class="table-ulbox">
+                          <ul class="table-head clearfix">
+                              <li class="w8w">客户名称</li>
+                              <li>到账金额</li>
+                              <li>到账日</li>
+                              <li class="w4w">备注</li>
+                          </ul>
+                          <div class="table-body">
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="w8w">中国移动</li>
+                                <li>130670.80</li>
+                                <li>2017-02-12</li>
+                                <li class="w4w">备注</li>
+                            </ul>
+                          </div>
+                      </div>
+        </div>
+    </div>
+    <!-- 金额 -->
+    <div class="my-sales-money">
+        <div class="my-sales-section">
+            <p>本月合同金额</p>
+            <p class="my-section-money">13,423,245.00</p>
+        </div>
+        <div class="my-sales-section">
+            <p>本月合同金额</p>
+            <p class="my-section-money">13,423,245.00</p>
+        </div>
+        <div class="my-sales-section">
+            <p>本月合同金额</p>
+            <p class="my-section-money">13,423,245.00</p>
+        </div>
+        <div class="my-sales-section">
+            <p>本月合同金额</p>
+            <p class="my-section-money">13,423,245.00</p>
+        </div>
+        <div class="my-sales-section">
+            <p>本月合同金额</p>
+            <p class="my-section-money">13,423,245.00</p>
+        </div>
+    </div>
+    <!-- 收钱 -->
+    <div class="my-order-info my-order-gathering">
+        <div class="my-order-head">
+            <span class="my-order-title"><i class="iqon-report"></i>快收钱去</span>
+            <span class='my-order-all'>全部</span>
+        </div>
+        <div class="table-ulbox">
+                      <ul class="table-head clearfix">
+                          <li class="w18w">合同名称</li>
+                          <li  class="w18w">客户名称</li>
+                          <li>开票金额</li>
+                          <li>到账日</li>
+                          <li class="w6w">超期天数</li>
+                      </ul>
+                      <div class="table-body">
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+                        <ul class="clearfix">
+                            <li  class="w18w">平安集团安全系统招标</li>
+                            <li  class="w18w">中国移动</li>
+                            <li>130670.80</li>
+                            <li>2017-02-12</li>
+                            <li class="w6w">备注</li>
+                        </ul>
+
+                      </div>
+                  </div>
+    </div>
+
+</div>

@@ -1,0 +1,129 @@
+<div class="m-apply">
+  <div class="m-apply m-demo-content">
+    <h3>1、iq_array_refactor示例</h3>
+    <div class="demo-list">
+      <div class="demo-item">
+        <div class="description"><br>
+          <span>
+            XXX为数组[obj1,obj2]
+            将按照expression的模式显示数组 其中[.属性]替换数组元素的属性值
+            id name为可选，也可替换
+            如 任意1[.id]任意2[.name]任意3 显示 : 任意1+"obj1.id"+任意2+"obj1.name"+任意3,任意1+"obj2.id"+任意2+"obj2.name"+任意3
+            XXX 为<br>
+          <code>[
+            {{ '{' }}id:"id1",username:"xuchao1"{{ '}' }},
+            {{ '{' }}id:"id2",username:"xuchao2"{{ '}' }},
+            {{ '{' }}id:"id2",username:"xuchao2"{{ '}' }}
+          </code><br>
+          <b>若expression为[.username]([.id])，显示结果为：{{ users | iq_array_refactor:"[.id]([.username])"}}</b><br>
+        </span><br>
+
+        </div>
+        <div class="code-block">
+          <pre class="code">{{ '{' }}{{ '{' }}XXX | iq_array_refactor:"[.id][.name]" {{ '}' }}{{ '}' }}</pre>
+        </div>
+        <div class="example"><br>
+          <b>若表达式为：</b>
+          <pre class="code">{{ '{' }}{{ '{' }}XXX | iq_array_refactor:"[.id]([.name])" {{ '}' }}{{ '}' }}</pre>
+          <br><b>显示结果为：</b>
+          {{ users | iq_array_refactor:"[.id]([.username])"}}<br>
+          <b>若表达式为：</b>
+          <pre class="code">{{ '{' }}{{ '{' }}XXX | iq_array_refactor:"[.id]---[.name]" {{ '}' }}{{ '}' }}</pre>
+          <br><b>显示结果为：</b>
+          {{ users | iq_array_refactor:"[.id]---[.username]"}}<br>
+          <b>若表达式为：</b>
+          <pre class="code">{{ '{' }}{{ '{' }}XXX | iq_array_refactor:"[.id]" {{ '}' }}{{ '}' }}</pre>
+          <br><b>显示结果为：</b>
+          {{ users | iq_array_refactor:"[.id]"}}<br>
+          <b>若表达式为：</b>
+          <pre class="code">{{ '{' }}{{ '{' }}XXX | iq_array_refactor:"[.name]" {{ '}' }}{{ '}' }}</pre>
+          <br><b>显示结果为：</b>
+          {{ users | iq_array_refactor:"[.username]"}}<br>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-apply m-demo-content">
+    <h3>2、Iq_gender示例：</h3>
+    <div class="demo-list">
+      <div class="demo-item">
+        <div class="title">
+          <span>
+          </span>
+        </div>
+        <div class="description">
+          <span>
+          </span>
+        </div>
+        <div class="code-block">
+          <pre class="code">{{"{"}}{{ '{' }}XXX | iq_gender:"男,1;女,2;不详,3" {{ '}' }} {{"}"}}</pre>
+        </div>
+        <div class="example">
+          <ul>
+            <li>
+              性别：
+              &nbsp; {{gender}} &nbsp;
+              <label>
+                <input type="radio" name="gender1" [(ngModel)]="gender" value="1" icheck>
+                {{ num[0] | iq_refactor:"男,1;女,2;不详,3"}}
+              </label>
+              <label>{{ item | iq_refactor:"男,1;女,2;不详,3"}}
+                <input type="radio" name="gender1" [(ngModel)]="gender" value="2" icheck>
+                {{ num[1] | iq_refactor:"男,1;女,2;不详,3"}}
+              </label>
+              <label>
+                <input type="radio" name="gender1" [(ngModel)]="gender" value="3" icheck>
+                {{ num[2] | iq_refactor:"男,1;女,2;不详,3"}}
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-apply m-demo-content">
+    <h3>3、Iq_refactor示例：</h3>
+    <div class="demo-list">
+      <div class="demo-item">
+        <div class="title">
+          <span>
+          </span>
+        </div>
+        <div class="description">
+          <span>
+
+
+          </span>
+        </div>
+        <div class="code-block">
+          <pre class="code">{{"{"}}{{ '{' }}XXX | iq_refactor:"男,true;女,false" {{ '}' }} {{"}"}}</pre>
+        </div>
+        <div class="example">
+          <ul>
+            <li>
+              性别：
+              &nbsp; {{gender2}} &nbsp;
+              <label>
+                <input type="radio" name="gender2" [(ngModel)]="gender2" value="true" icheck>
+                {{ num[0] | iq_refactor:"男,1;女,2;不详,3"}}
+              </label>
+              <label>{{ item | iq_refactor:"男,1;女,2;不详,3"}}
+                <input type="radio" name="gender2" [(ngModel)]="gender2" value="false" icheck>
+                {{ num[1] | iq_refactor:"男,1;女,2;不详,3"}}
+              </label>
+            </li>
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

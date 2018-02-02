@@ -1,0 +1,16 @@
+<div class="container">
+  <div>
+    <pre>
+
+      <code>
+      {{ " { " }}
+        pageSize:{{ pageSize}}
+      {{ " } " }}
+      </code>
+    </pre>
+  </div>
+  <div>
+    <input type="text" name="name" [(ngModel)]="setting.pageSize">
+    <button type="button" name="保存" (click)="saveSetting()">保存</button>
+  </div>
+</div>

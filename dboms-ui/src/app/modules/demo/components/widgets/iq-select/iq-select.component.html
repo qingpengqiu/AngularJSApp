@@ -1,0 +1,30 @@
+<div>
+<h4>iq-select</h4>
+<pre>
+必须
+  listApi: string;                               //下拉列表选项api
+  dataModal: any = {{'{'}}{{'}'}};                   //data数据模型
+非必需
+  placeHolder: string;                     //placeholder
+  modalShow: boolean = true;       //弹出框出现
+  noSearch: boolean = false;          //隐藏搜索框
+  disabled: boolean = false;           //禁用
+  queryParams: any = {{'{}'}};                  //额外的查询参数
+  required: boolean = false;
+  itemIndex: number = 0;              //被选项的位置
+  itemValue: number = 0;              //ngModel绑定值的位置
+</pre>
+<br>
+<h4>example</h4>
+<br>
+{{'&lt;'}}iq-select [(ngModel)]="abc" listApi="material/basedata/get" [dataModal]="{{'{'}}item:['data','rows'],title:['data','columns'],pager:['data','pager']{{'}'}}" [queryParams]="{{'{'}}tabName:1,applyName:2{{'}'}}" placeHolder="-请选择">{{'&lt;'}}/iq-select>
+</div>
+<br>
+<div>
+  <iq-select [(ngModel)]="abc" [dataModal]="{item:['data','rows'],title:['data','columns'],pager:['data','pager']}" listApi="material/basedata/get" [queryParams]="{tabName:1,applyName:1}" placeHolder="-请选择"></iq-select>
+</div>
+<div>
+  <iq-select [(ngModel)]="def" [modalShow]="true" [dataModal]="{item: ['Data']}" [queryParams]="{queryStr: 'querycontent'}" listApi="InitData/GetCompanyInfo" placeHolder="-请选择"></iq-select>
+</div>
+
+<iq-select class="iqSelect" [(ngModel)]="baseSaveInfo"  [modalShow]="true" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager']}" listApi="InitData/GetPageDataCompany" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent'}"></iq-select>

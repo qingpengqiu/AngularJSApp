@@ -1,0 +1,101 @@
+<form #messageForm="ngForm">
+    <ul class="addApp-base-list">
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label">模板名称</label>
+                <!-- <ng-select class="addApp-form-input m-select-box" [items]="MyTemplateList" placeholder="请选择" (selected)="getTemplate($event)"></ng-select> -->
+                <iq-select class="iqSelect" [(ngModel)]="TemplateName" name="TemplateName" ngModel [showIndex]="showIndex" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager'],title:['Data','title']}"
+                listApi="PurchaseManage/GetMyTemplate" (onSelect)="getTemplate($event)" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent',SYB:bizdivision}"></iq-select>
+            </div>
+        </li>
+       </ul>
+    	<ul class="addApp-base-list" style="margin-top:0">    
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>我方主体</label>
+                <iq-select class="iqSelect" required name="company" ngModel [(ngModel)]="baseSaveInfo.company" [modalShow]="true" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager'],title:['Data','title']}"
+                    listApi="InitData/GetPageDataCompany" (onSelect)="CompanyChange($event)" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent'}"></iq-select>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>工厂</label>
+                <input class="addApp-form-input" maxlength="4" required name="factory" ngModel type="text" [(ngModel)]=baseSaveInfo.factory (blur)="sendDataFour(baseSaveInfo.factory)">
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>供应商</label>
+                <iq-select class="iqSelect" required name="vendor" ngModel [(ngModel)]="baseSaveInfo.vendor" [modalShow]="true" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager'],title:['Data','title']}"
+                    (onSelect)="VendorChange($event)" listApi="InitData/GetPageDataVendor" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent'}"></iq-select>
+            </div>
+        </li>
+        <li *ngIf="IsCenter">
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>对方业务范围</label>
+                <input class="addApp-form-input" name="vendorbizscope" ngModel type="text" [(ngModel)]=baseSaveInfo.vendorbizscope
+                    (blur)="checkVendorbizscope(baseSaveInfo.vendorbizscope)">
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>税率</label>
+                <ng-select class="addApp-form-input m-select-box" required name="taxrate" ngModel [items]="selectInfo.taxrate" placeholder="请选择"
+                   (selected)="getTaxrate($event)" [(ngModel)]=activeTax [disabled]="TaxrateFlag"></ng-select>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>币种</label>
+                <ng-select class="addApp-form-input m-select-box" [items]="selectInfo.currency" required name="currency" ngModel (selected)="getCurrency($event)"
+                    placeholder="请选择" [active]=avtiveCur [(ngModel)]=avtiveCur></ng-select>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>预计销售时间</label>
+                <my-datepicker class="addApp-form-input addApp-form-time" [(ngModel)]="baseSaveInfo.preselldate" required format="YYYY-MM-DD" name="preselldate" ngModel PlaceHolder="-请选择日期" (ngModelChange)="getMessageDate($event)"
+                    name="preselldate" ngModel [StartDate]="presellStartDate"></my-datepicker>
+                <!-- <iq-datepicker class="addApp-form-input addApp-form-time" required [(ngModel)]=baseSaveInfo.preselldate name="preselldate" ngModel
+                    [closeOnSelect]=true (onChange)="getMessageDate($event)"></iq-datepicker> -->
+            </div>
+        </li>
+        <li *ngIf="!IsRMB">
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>外币总金额</label>
+                <span class="padSpan">{{baseSaveInfo.foreigncurrencymoney}}</span>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>未税总金额</label>
+                <span class="padSpan">{{baseSaveInfo.excludetaxmoney|number:"1.0-2"}}</span>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>含税总金额</label>
+                <span class="padSpan">{{baseSaveInfo.taxinclusivemoney|number:"1.0-2"}}</span>
+            </div>
+        </li>
+        <li *ngIf="!IsRMB">
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>交货条件</label>
+                <input class="addApp-form-input w43 little-input" type="text" [(ngModel)]=baseSaveInfo.internationaltradelocation name="baseSaveInfo.internationaltradelocation" (blur)="sendData()">
+                <input class="addApp-form-input w43" type="text" name="baseSaveInfo.internationaltradeterms" [(ngModel)]=baseSaveInfo.internationaltradeterms (blur)="sendData()">
+            </div>
+        </li>
+        <li *ngIf="!IsRMB">
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>收货人</label>
+                <input class="addApp-form-input" type="text" name="receiver" [(ngModel)]=baseSaveInfo.receiver (blur)="sendData()">
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label">需求跟踪号</label>
+                <input class="addApp-form-input" maxlength="10" type="text" name="tracenoF" [(ngModel)]=baseSaveInfo.traceno (blur)="sendtraceno(baseSaveInfo.traceno)">
+            </div>
+        </li>
+    </ul>
+</form>

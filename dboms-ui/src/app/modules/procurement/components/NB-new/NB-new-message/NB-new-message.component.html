@@ -1,0 +1,60 @@
+<form #messageForm="ngForm">
+    <ul class="addApp-base-list">
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label">模板名称</label>
+                <iq-select class="iqSelect" [(ngModel)]="TemplateName" name="TemplateName" ngModel [showIndex]="showIndex" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager'],title:['Data','title']}"
+                [disabled]=applyListLocalShow listApi="PurchaseManage/GetMyTemplate" (onSelect)="getTemplate($event)" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent',SYB:bizdivision}"></iq-select>
+            </div>
+        </li>
+    </ul>
+    <ul class="addApp-base-list">    
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>我方主体</label>
+                <iq-select class="iqSelect" required name="company" ngModel [(ngModel)]="baseSaveInfo.CompanyName" [modalShow]="true" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager'],title:['Data','title']}"
+                [disabled]=applyListLocalShow  listApi="InitData/GetPageDataCompany" (onSelect)="CompanyChange($event)" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent'}"></iq-select>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>工厂</label>
+                <input class="addApp-form-input" [disabled]=applyListLocalShow maxlength="4" required name="factory" ngModel type="text" [(ngModel)]=baseSaveInfo.FactoryCode (blur)="sendDataFour(baseSaveInfo.FactoryCode)">
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>供应商</label>
+                <iq-select class="iqSelect DataVendor" required name="vendor" ngModel [(ngModel)]="baseSaveInfo.Vendor" [modalShow]="true" [dataModal]="{item: ['Data','pagedata'],pager:['Data','pager'],title:['Data','title']}"
+                [disabled]=applyListLocalShow  (onSelect)="VendorChange($event)" listApi="InitData/GetPageDataVendor" placeHolder="-请选择" [queryParams]="{queryStr:'querycontent'}"></iq-select>
+            </div>
+        </li>
+        <li *ngIf="IsCenter">
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>对方业务范围</label>
+                <input class="addApp-form-input" name="vendorbizscope" ngModel type="text" [(ngModel)]=baseSaveInfo.BusinessRange
+                    (blur)="checkVendorbizscope(baseSaveInfo.BusinessRange)">
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>税率</label>
+                <ng-select class="addApp-form-input m-select-box" required name="taxrate" ngModel [items]="selectInfo.taxrate" placeholder="请选择"
+                [disabled]="applyListLocalShow || TaxrateFlag" (selected)="getTaxrate($event)" [(ngModel)]=activeTax></ng-select>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>币种</label>
+                <ng-select class="addApp-form-input m-select-box" [items]="selectInfo.currency" required name="currency" ngModel (selected)="getCurrency($event)"
+                [disabled]=applyListLocalShow  placeholder="请选择" [(ngModel)]=avtiveCur></ng-select>
+            </div>
+        </li>
+        <li>
+            <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>需求跟踪号</label>
+                <input class="addApp-form-input" type="text" maxlength="10" required name="traceno" ngModel [(ngModel)]=baseSaveInfo.TrackingNumber (blur)="sendtraceno(baseSaveInfo.TrackingNumber)">
+            </div>
+        </li>
+    </ul>
+</form>

@@ -1,0 +1,37 @@
+.btn-content {
+    margin:15px 20px;
+    overflow: hidden;
+    .min-btn {
+        width: 88px;
+        height: 24px;
+        line-height: 24px;
+        margin-left: 10px;
+        font-size: 12px;
+    }
+}
+.head-cont {
+    display: inline-block;
+    width: 24%;
+}
+:host /deep/ .min-btn .m-fileupload {
+        height: 24px;
+        line-height: 24px;
+        background-color: #57b9f8;
+        color: #fff;
+        font-size: 12px;
+    
+}
+
+
+/*
+.fix-table-content {
+    .m-info-table thead{
+        display: table;
+    }
+    .m-info-table tbody {
+        display: block;
+        max-height:300px;
+        overflow-y:auto;
+    }
+}    
+*/

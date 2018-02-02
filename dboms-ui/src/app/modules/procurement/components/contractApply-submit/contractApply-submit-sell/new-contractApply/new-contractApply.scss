@@ -1,0 +1,65 @@
+.m-order-number {
+    width: 70%;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 0%;
+    left: 15%;
+    padding-top: 60px;
+}
+.content-auto {
+    /* position: relative; */
+    min-width: 1200px;
+    height: 160%;
+    overflow: auto;
+    margin-bottom: 100px;
+}
+.closes{
+    position: absolute;
+    display: inline-block;
+    right: 20px;
+    top: 75px;
+}
+.m-search-item{
+    float: left;
+    margin-bottom: 10px;
+    width: 33%;
+
+    >label{
+      display: inline-block;
+      width: 75px;
+      margin-right: 7px;
+      text-align: right;
+    }
+    >input[type=text],.m-select-search{
+      display: inline-block;
+      width: 70%;
+    }
+  }
+  .disIn{
+      display: inline-block;
+  }
+  .relation-item{
+      width: 45%;
+  }
+  .btns{
+      width: 300px;
+  }
+  .btns1{
+      width:170px;
+  }
+  iq-person-select{
+      display: inline-block;
+  }
+  .addApp-form-label{
+      width: 25%;
+  }
+  .addApp-form-input{
+      width: 75%;
+  }
+  .m-dialog-head{
+      padding: 0;
+  }
+  .addApp-base-list{
+      padding: 0!important;
+  }

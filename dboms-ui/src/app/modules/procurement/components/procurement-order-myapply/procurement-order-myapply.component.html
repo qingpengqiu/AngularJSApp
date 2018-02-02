@@ -1,0 +1,304 @@
+<div class="m-overclass">
+  <div class="m-list-menu">
+    <ul class="m-state">
+      <li [ngClass]="{'active' : query.WfStatus=='审批'}" (click)="onTab('审批')">审批中</li>
+      <li [ngClass]="{'active' : query.WfStatus=='完成'}" (click)="onTab('完成')">已完成</li>
+      <li [ngClass]="{'active' : query.WfStatus==''}" (click)="onTab('')">全部</li>
+      <li [ngClass]="{'active' : query.WfStatus=='草稿'}" (click)="onTab('草稿')">草稿</li>
+    </ul>
+
+    <div class="m-search-all" [ngClass]="{'hide': highSearchShow}">
+      <div class="m-search-high" (click)="highSearchShow=true">
+        <i class="iqon-highsearch"></i> 高级搜索
+      </div>
+    </div>
+
+    <!-- 高级搜索 -->
+    <div class="m-search-open" [ngClass]="{'hide': !highSearchShow}" (click)="highSearchShow = false">
+      收起高级搜索
+    </div>
+    <div class="m-search-more" [ngClass]="{'hide': !highSearchShow}">
+      <div class="form">
+        <div class="m-search-item">
+          <label>需求跟踪号</label>
+          <input [(ngModel)]="query.TrackingNumber" type="text">
+        </div>
+        <div class="m-search-item">
+          <label>采购订单类型</label>
+          <div class="m-select">
+            <i class="iqon-xia"></i>
+            <select [(ngModel)]="query.OrderType">
+              <option value="">全部</option>
+              <option value="NB">NB</option>
+              <option value="NA">NA</option>
+              <option value="NK">NK</option>
+            </select>
+          </div>
+        </div>
+        <div class="m-search-item">
+          <label>申请单号</label>
+          <input [(ngModel)]="query.ApplicantOrderNumber" type="text">
+        </div>
+        <div class="m-search-item">
+          <label>供应商名称</label>
+          <input [(ngModel)]="query.Vendor" type="text">
+        </div>
+        <div class="m-search-item">
+          <label>采购订单号</label>
+          <input [(ngModel)]="query.OrderNumber" type="text">
+        </div>
+        <div class="m-search-item">
+        </div>
+        <div class="m-search-item m-search-items">
+          <label>申请日期</label>
+          <div class="m-datepicker-comb">
+            <div class="m-datepicker-start">
+              <my-datepicker [(ngModel)]="query.BeginTime" format="YYYY-MM-DD" [EndDate]="query.EndTime" PlaceHolder="-请选择开始日期" name="BeginDate"></my-datepicker>
+            </div> ~
+            <div class="m-datepicker-end">
+              <my-datepicker [(ngModel)]="query.EndTime" format="YYYY-MM-DD" [StartDate]="query.BeginTime" PlaceHolder="-请选择结束日期" name="EndDate"></my-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="m-search-btn">
+          <button type="button" class="m-btn-confirm research" (click)="search()">搜索</button>
+          <button type="button" class="m-btn-default resets" (click)=reset()>重置</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 物料数据列表 -->
+  <div class="m-card-cont">
+    <div class="m-noresult" [ngClass]="{'hide':searchList && searchList.length > 0}">
+          <loading [show]="loading"></loading>
+           <!-- 数据缺省 -->
+          <div class="m-noresult-msg">
+              <i class="iqon-query"></i>
+              <p class="m-noresult-notice">暂无相关数据</p>
+              <p class="m-p-notice">点击“新建”新建数据吧~</p>
+          </div>
+    </div>
+    <div [ngClass]="{'hide':searchList && searchList.length == 0}">
+      <!-- 1、审批中列表 -->
+      <div *ngIf="query.WfStatus=='审批'">
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+              </th>
+              <th class="wp10">采购订单类型</th>
+              <th class="wp20">我方主体</th>
+              <th class="wp20">供应商</th>
+              <th class="wp10">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp10">当前环节</th>
+              <th class="wp10">当前处理人</th>
+              <th class="wp10">
+                申请日期
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index" (click)="routerJump(list.ApproveState,list.ID)">
+              <td class="wp15" title={{list.ApplicantOrderNumber}}>
+                {{ list.ApplicantOrderNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.OrderType }}
+              </td>
+              <td class="wp20" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp20" title={{list.ProviderName}}>
+                {{ list.ProviderName }}
+              </td>
+              <td class="wp10" title={{list.TrackingNumber}}>
+                {{ list.TrackingNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.PruchaseAmount }}
+              </td>
+              <td class="wp10">
+                  {{ list.CurrentApprovalNode[0].nodename }}
+              </td>
+              <td class="wp10" title={{list.CurrentApprovalNode[0].approver}}>
+                {{ list.CurrentApprovalNode[0].approver }}
+              </td>
+              <td class="wp10">
+                {{ list.AddTime | iqDate:'YYYY-MM-DD'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 2、已完成列表-->
+      <div *ngIf="query.WfStatus=='完成'">
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+                </th>
+              <th class="wp10">采购订单类型</th>
+              <th class="wp15">采购订单号</th>
+              <th class="wp25">我方主体</th>
+              <th class="wp25">供应商</th>
+              <th class="wp10">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp15">
+                申请日期
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index" (click)="routerJump(list.ApproveState,list.ID)">
+              <td class="wp15" title={{list.ApplicantOrderNumber}}>
+                {{ list.ApplicantOrderNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.OrderType }}
+              </td>
+              <td class="wp15" title={{list.ERPOrderNumber}}>
+                {{ list.ERPOrderNumber }}
+              </td>
+              <td class="wp25" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp25" title={{list.ProviderName}}>
+                {{ list.ProviderName }}
+              </td>
+              <td class="wp10" title={{list.TrackingNumber}}>
+                {{ list.TrackingNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.PruchaseAmount }}
+              </td>
+              <td class="wp15">
+                {{ list.AddTime | iqDate:'YYYY-MM-DD'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+       <!-- 3、全部列表 -->
+       <div *ngIf="query.WfStatus==''">
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+              </th>
+              <th class="wp10">采购订单类型</th>
+              <th class="wp15">我方主体</th>
+              <th class="wp15">供应商</th>
+              <th class="wp10">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp10">当前环节</th>
+              <th class="wp10">当前处理人</th>
+              <th class="wp10">
+                申请日期
+              </th>
+              <th class="wp10 operate" style="text-align:left;">
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index" (click)="routerJump(list.ApproveState,list.ID)">
+              <td class="wp15" title={{list.ApplicantOrderNumber}}>
+                {{ list.ApplicantOrderNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.OrderType }}
+              </td>
+              <td class="wp20" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp20" title={{list.ProviderName}}>
+                {{ list.ProviderName }}
+              </td>
+              <td class="wp10" title={{list.TrackingNumber}}>
+                {{ list.TrackingNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.PruchaseAmount }}
+              </td>
+              <td class="wp10">
+                  {{ list.CurrentApprovalNode[0].nodename }}
+              </td>
+              <td class="wp10" title={{list.CurrentApprovalNode[0].approver}}>
+                {{ list.CurrentApprovalNode[0].approver }}
+              </td>
+              <td class="wp10">
+                {{ list.AddTime | iqDate:'YYYY-MM-DD'}}
+              </td>
+              <td class="wp10 operate" stopParentClick style="text-align:left;">
+                <span (click)="deleteDraft(list.ID)" *ngIf="list.ApproveState=='驳回' || list.ApproveState=='草稿'" >删除</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 4、草稿列表-->
+      <div *ngIf="query.WfStatus=='草稿'">
+        <table class="table table-hover table-list" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th class="wp15">
+                申请单号
+                </th>
+              <th class="wp10">采购订单类型</th>
+              <!-- <th class="wp15">采购订单号</th> -->
+              <th class="wp20">我方主体</th>
+              <th class="wp20">供应商</th>
+              <th class="wp10">需求跟踪号</th>
+              <th class="wp10">采购金额</th>
+              <th class="wp10">申请状态</th>
+              <th class="wp10">
+                申请日期
+              </th>
+              <th class="wp10 operate">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList;let i=index" (click)="routerJump(list.ApproveState,list.ID)">
+              <td class="wp15" title={{list.ApplicantOrderNumber}}>
+                {{ list.ApplicantOrderNumber }}
+              </td>
+              <td class="wp15">
+                {{ list.OrderType }}
+              </td>
+              <!-- <td class="wp15" title={{list.ERPOrderNumber}}>
+                {{ list.ERPOrderNumber }}
+              </td> -->
+              <td class="wp20" title={{list.Own}}>
+                {{ list.Own }}
+              </td>
+              <td class="wp20" title={{list.ProviderName}}>
+                {{ list.ProviderName }}
+              </td>
+              <td class="wp10" title={{list.TrackingNumber}}>
+                {{ list.TrackingNumber }}
+              </td>
+              <td class="wp10">
+                {{ list.PruchaseAmount }}
+              </td>
+              <td class="wp10">
+                {{ list.ApproveState }}
+              </td>
+              <td class="wp15">
+                {{ list.AddTime | iqDate:'YYYY-MM-DD'}}
+              </td>
+              <td class="wp10 operate" stopParentClick>
+                <span (click)="deleteDraft(list.ID)">删除</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <iq-pager [data]="pagerData" (onChange)="onChangePager($event)"></iq-pager>
+    </div>  
+  </div>
+</div>

@@ -1,0 +1,84 @@
+@import '../../../../../sass/base/util';
+.m-overclass{
+  padding: 10px 20px;
+}
+
+.m-search-form{
+  @extend %clearfix;
+
+  .m-search-input{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    >input[type=text]{
+      width: 300px;
+    }
+    .em-flex{
+      display: flex;
+      width: 29%;
+      white-space: nowrap;
+      label{
+        width:20%;
+        text-align: right;
+        line-height: 35px;
+        padding-right: 10px;
+      }
+      .m-select,input{
+        width: 80%;
+        border-radius: 5%;
+      }
+    }
+    .em-flex-down{
+      width: 360px;
+      margin-top: 10px;
+      .m-datepicker-comb{
+        display: flex;
+        line-height: 35px;
+      }
+      label{
+        line-height: 35px;
+      }
+    }
+  }
+  .m-search-btn{
+    float: right;
+    padding-top: 10px;
+    .m-btn-confirm{
+      width: 78px;
+    }
+    .m-btn-default{
+      width: 78px;
+      margin-left: 15px;
+    }
+  }
+}
+
+.m-noresult{
+  margin-top: 10px;
+}
+
+.m-materiel-cont{
+  background: #fff;
+}
+
+
+.m-datepicker-comb{
+  display: inline-block;
+  width: 300px;
+
+  .m-datepicker-start,.m-datepicker-end{
+    display: inline-block;
+    width: 140px;
+  }
+}
+
+.table{
+  table-layout: auto;
+  font-size:12px;
+  >thead>tr>th{
+    border:none;
+  }
+}
+    

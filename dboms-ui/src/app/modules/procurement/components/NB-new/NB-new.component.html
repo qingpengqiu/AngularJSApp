@@ -1,0 +1,152 @@
+<div class="content-auto">
+  <loading [show]="submiting"></loading>
+  <div>
+    <div class="addApply-container">
+      <h1 class="addApply-tit-h1">NB国内采购订单</h1>
+      <!--基本信息-->
+      <div class="addApply-base">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">基础信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list">
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label">申请人</label>
+                <div style="margin-left:10px;">
+                  <div class="m-user-info" user-image [hasClose]="false" [user]="userInfo"></div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>联系方式</label>
+                <input class="addApp-form-input" type="text" [(ngModel)]="saveData.Telephone">
+              </div>
+            </li>
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"><i class="addApp-form-tips">*</i>所属平台</label>
+                <ng-select class="addApp-form-input m-select-box" [items]="selectInfo.plateInfo" required name="plateform" ngModel 
+                  (selected)="getPlateform($event)" [active]=avtivePlate [(ngModel)]=avtivePlate></ng-select>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--采购信息-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <NB-new-message (baseSaveData)="baseSaveData($event)" (companycode)="companycode($event)" (isCore)="isCore($event)" (submitMassageRes)="submitMassageRes($event)" [saveData]=saveData> </NB-new-message>
+        </div>
+      </div>
+      <!--采购清单-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购清单</span>
+          <i class="iqon-fold" (click)="procurementListShow=!procurementListShow"></i>
+        </div>
+        <div class="addApp-base-infor" *ngIf="procurementListShow">
+           <NB-new-list [purchaseData]="purchaseData" [rate]="saveData.RateValue" [purchaseOrderID]="saveData.ID" (onPurchaseDataChange)="onPurchaseDataChange($event)"
+            (purchaseFormValidChange)="purchaseFormValidChange($event)"></NB-new-list>
+        </div>
+      </div>
+      <!--采购申请信息-->
+      <div class="addApply-base money" *ngIf="applyListLocalShow" >
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购申请信息</span>
+          <span class="m-dialog-head-change">下单金额汇总：{{saveData.PruchaseAmount}}</span>
+          <i class="iqon-fold"></i>
+        </div>
+        <div class="addApp-base-infor">
+          <div class="fix-table-content">
+            <table class="m-info-table">
+              <thead>
+                <tr>
+                  <th class="add-w-b60">采购申请编号</th>
+                  <th class="m-infor-td">供应商名称</th>
+                  <th>含税总金额</th>
+                  <th>已采购金额</th>
+                  <th>本次采购金额</th>
+                  <th>申请人</th>
+                  <th>申请日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of applyListLocal;index as i">
+                  <td>{{item.requisitionnum}}</td>
+                  <td>{{item.vendor}}</td>
+                  <td>{{item.taxinclusivemoney}}</td>
+                  <td>{{item.cumulativeconsumemoney}}</td>
+                  <td>{{item.localMoney}}</td>
+                  <td>{{item.username}}</td>
+                  <td>{{item.addtime | iqDate:'YYYY-MM-DD'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--附件-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">附件</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list accessory-content">
+            <li>
+              <div class="addApp-form-item">
+                <label class="addApp-form-label">上传附件</label>
+                <div class="accessory-item">
+                  <iq-file-upload upType="1" [url]="accessoryUrl" maxFileSize="5242880" maxFileNum="10" (onSuccess)="onUploadBack($event)"
+                    (onDeleteItem)="onDeleteItem($event)" [hasUploaded]="AccessorySee"></iq-file-upload>
+                </div>
+              </div>
+            </li>
+            <li class="file-tip-box">
+              <div class="addApp-form-item">
+                <label class="addApp-form-label"></label>
+                <div class="file-tip">
+                  <span>上传不能超过10个文件，每个文件大小5M</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--审批人信息-->
+      <div class="addApply-base money">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">审批人信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <ul class="addApp-base-list accessory-content">
+            <li>
+              <prepare-person min="1" max="4" text="级预审" defaultNum="1" (onChange)="getChange($event)" [personList]=personList></prepare-person>             
+              <ul class="repare-list">
+                <li *ngFor="let item of personArr;index as i" >
+                  <p>{{item.NodeName}}</p>
+                  <div class="info-wrap">
+                    <div *ngFor="let x of item.userData;index as n">
+                      <div class="m-user-info" user-image [hasClose]="false" [user]="x"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="addApp-submit-btn">
+      <div class="addApp-sub-btns">
+        <button class="m-btn-confirm" type="button" (click)="saveNBOrder('提交')">提交</button>
+        <button class="m-btn-more-big" type="button" (click)="saveNBOrder('草稿')">暂存</button>
+        <a (click)="closeWindow()"><button class="m-btn-addAppback">取消</button></a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div style="background-color: #fff;">
+
+  <h4>1、只有头像信息：</h4>
+  <div class="m-approval">
+    <div class="m-user-members">
+      <div class="m-user-info">
+        <user-image-head [user]="id"></user-image-head>
+      </div>
+      </div>
+    </div>
+
+  <h4>2、无Hover信息：</h4>
+
+  <div>
+    <span>传用户id</span>
+    <user-image [user]="id"></user-image>
+  </div>
+  <div>
+    <span>传Person对象</span>
+    <user-image [user]="person"></user-image>
+  </div>
+
+  <h4>3、有Hover信息：</h4>
+  <div>
+    <span>不可删除</span>
+    <user-image-hover [user]="id1" [delete]="false"></user-image-hover>
+  </div>
+  <div>
+    <span>可删除</span>
+    <user-image-hover [user]="id1" [delete]="true"></user-image-hover>
+  </div>
+  <h4>4、自定义Hover page</h4>
+  <div>
+    <user-image [user]="id1"
+                (mouseover)="createComponent('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur corporis,doloribus impedit maiores molestias nihil nulla quidem. Animi consectetur cum iusto magnam modi natus reiciendis...')"
+                (mouseleave)="ngOnDestroy()"></user-image>
+    <ng-template #hoverPageContainer></ng-template>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="modal-dialog modal-sm m-add-admin modal-wd6 dialog-borrow">
+  <div class="modal-header m-dialog-head">
+    <span>新建财年调整</span>
+    <i class="iqon-close" (click)="hide()"></i>
+  </div>
+  <form #form="ngForm" (ngSubmit)="save()">
+    <div class="m-add-form">
+      <loading [show]="loading"></loading>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">原本部名称：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <input type="text" #forminput required [ngClass]="{'m-select-warn': !srcBaseDeptName.valid && (srcBaseDeptName.touched || form.submitted)}"
+            name="srcBaseDeptName" #srcBaseDeptName="ngModel" [(ngModel)]="fiscalObj.srcBaseDeptName">
+        </div>
+      </div>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">原事业部名称：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <input type="text" #forminput required [ngClass]="{'m-select-warn': !srcSubDeptName.valid && (srcSubDeptName.touched || form.submitted)}"
+            name="srcSubDeptName" #srcSubDeptName="ngModel" [(ngModel)]="fiscalObj.srcSubDeptName">
+        </div>
+      </div>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">原业务范围代码：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <input type="text" #forminput required [ngClass]="{'m-select-warn': !srcBusinessScope.valid && (srcBusinessScope.touched || form.submitted)}"
+            name="srcBusinessScope" #srcBusinessScope="ngModel" [(ngModel)]="fiscalObj.srcBusinessScope">
+        </div>
+      </div>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">现本部名称：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <input type="text" #forminput required [ngClass]="{'m-select-warn': !descBaseDeptName.valid && (descBaseDeptName.touched || form.submitted)}"
+            name="descBaseDeptName" #descBaseDeptName="ngModel" [(ngModel)]="fiscalObj.descBaseDeptName">
+        </div>
+      </div>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">现事业部名称：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <input type="text" #forminput required [ngClass]="{'m-select-warn': !descSubDeptName.valid && (descSubDeptName.touched || form.submitted)}"
+            name="descSubDeptName" #descSubDeptName="ngModel" [(ngModel)]="fiscalObj.descSubDeptName">
+        </div>
+      </div>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">现业务范围代码：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <input type="text" #forminput required [ngClass]="{'m-select-warn': !descBusinessScope.valid && (descBusinessScope.touched || form.submitted)}"
+            name="descBusinessScope" #descBusinessScope="ngModel" [(ngModel)]="fiscalObj.descBusinessScope">
+        </div>
+      </div>
+      <div class="m-form-item-w100 m-approval">
+        <p class="m-form-label">调整日期：<span class="m-form-need">*</span></p>
+        <div class="m-user-members">
+          <my-datepicker [(ngModel)]="fiscalObj.adjustmentDate" PlaceHolder="-请选择调整日期" #adjustmentDate="ngModel" name="adjustmentDate"></my-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="m-add-btn">
+      <button class="m-btn-confirm">确定</button>
+      <button type="button" class="m-btn-cancel" (click)="hide()">取消</button>
+    </div>
+  </form>
+</div>

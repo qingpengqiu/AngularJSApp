@@ -1,0 +1,45 @@
+<div class="m-apply">
+    <div class="m-demo-content">
+        <h3>tab-switch示例</h3>
+        <div class="demo-list">
+            <div class="demo-item">
+                <div class="title">
+                    <span>
+                        tab切换组件
+                    </span>
+                </div>
+                <div class="description">
+                    <p>
+                        tab列表由组件内部操作，内容列表由父组件同步操作<br/>
+                        tabList,传进tab的内容格式为[ {{'{'}} text:'',invalid:Boolean {{'}'}},... ] <br/>
+                        active,传一开始呈现tab的index <br/>
+                        confirmText,传点击tab删除时提示的文字<br/>
+                        canAdd,布尔值，表示该tab组件是否支持增加tab,默认为false<br/>
+                        canDelete，布尔值，表示该tab组件是否支持删除tab,默认为false<br/>
+                        onChange事件,当切换tab显示时，返回当前显示tab的index<br/>
+                        onDelete事件，当删除一个tab时，返回删除tab的index<br/>
+                        addOne事件，当增加一个tab时，返回增加tab的index，新增加tab的invalid默认为false<br/>
+                    </p>
+                </div>
+                <div class="code-block">
+                    <pre class="code">
+            {{'<'}}tab-switch [tabList]="xx" [active]="y" confirmText="string" canAdd="true" canDelete="true" 
+                            (onChange)="onChange($event)" (onDelete)="deleteTab($event)" (addOne)="addTab($event)"{{'>'}}{{'<'}}/tab-switch{{'>'}}
+          </pre>
+                </div>
+                <div class="example">
+                    <div>
+                        <tab-switch [tabList]="tabList" [active]="active" confirmText="确定删除？" canAdd="true" canDelete="true" 
+                            (onChange)="onChange($event)" (onDelete)="deleteTab($event)" (addOne)="addTab($event)"></tab-switch>
+                        <div *ngFor="let item of contentList;index as i">
+                            <div *ngIf="active==i" class="m-tab-con">
+                                <h2>{{ item }}</h2>
+                            </div>
+                        </div>
+                        <button (click)="changeErr()">changeInvalid</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

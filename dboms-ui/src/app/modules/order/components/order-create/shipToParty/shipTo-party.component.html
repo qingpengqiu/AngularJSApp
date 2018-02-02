@@ -1,0 +1,76 @@
+<div class="addApply-base">
+  <div class="m-list-head m-dialog-head-change">
+    <span><i class="m-nuber-tag" *ngIf = "num > 1">{{currentIndex+1}}</i>送达方与销售物料信息</span>
+    <!-- 送达方为多送达方时，可删除 -->
+    <span *ngIf="num > 1" class="float-r" style="margin-right:23px;padding:0 5px;" (click)="delSelf()">删除</span>
+  </div>
+  <div class="addApp-base-infor">
+    <div class="addApp-base-list">
+      <ul class="m-shipTo-info">
+        <li>送达方编码<span>{{partyInfo.Deliverinfo.SDFCode}}</span></li>
+        <li>送达方名称<span>{{partyInfo.Deliverinfo.SDFName}}</span></li>
+        <li>送达方地址<span>{{fullAddress || partyInfo.Deliverinfo.SDFAddress}}</span></li>
+        <li style="width:10%;text-align: right;"><span class="m-shipTo-edit" (click)="changeInfo()">编辑</span></li>
+      </ul>
+      <div class="m-order-table" [ngClass]="{'m-border-botom':partyInfo.MaterialList.length>0}">
+        <ul class="m-table-head" [ngClass]="{'longW': num == 1 }">
+          <li>序号</li>
+          <li>ERP商品编码</li>
+          <li>商品名称</li>
+          <li>数量</li>
+          <li>金额</li>
+          <li>返款</li>
+          <li>销售总额</li>
+          <li>库存地</li>
+          <li>工厂</li>
+          <li>批次</li>
+          <li>发货方式</li>
+          <li>备注</li>
+          <li>销售单位</li>
+          <!-- 送达方为多送达方时，可转移 -->
+          <li *ngIf="num > 1" style="width:45px;">转移</li>
+          <li class="m-info-btn" (click)="addMaterial()" [ngClass]="{'m-pr-0':num > 1}">+</li>
+        </ul>
+        <div class="m-table-body">
+          <ul *ngFor="let item of partyInfo.MaterialList;index as i" [ngClass]="{'longW': num == 1 }">
+            <li>{{i+1}}</li>
+            <li>{{item.MaterialCode}}</li>
+            <li [title]="item.MaterialName">{{item.MaterialName}}</li>
+            <li>
+              <input #forminput class="m-infor-input" type="number" (change)="changeQuantity(item)" [(ngModel)]="item.Quantity" style="padding-right:0" min="0" [ngClass]="{'m-input-warn': item.Quantity === 0&& isSubmit}">
+            </li>
+            <li><input #forminput class="m-infor-input" type="text" (blur)="amountFormatP(item)" [(ngModel)]="item.Price"></li>
+            <li *ngIf="rebateAmount == 1.00">
+              <input #forminput class="m-infor-input" type="text" (blur)=" amountFormatR(item)" [(ngModel)]="item.RebateAmount">
+            </li>
+            <li *ngIf="rebateAmount != 1.00" [title]="item.RebateAmount">
+              {{(item.RebateAmount || 0) | iqNumber:'1.2-2'}}
+            </li>
+            <li [title]="item.TotalPrice">{{(item.TotalPrice || 0) | iqNumber:'1.2-2'}}</li>
+            <li [title]="item.StorageLocation">{{item.StorageLocation}}</li>
+            <li [title]="item.Factory">{{item.Factory}}</li>
+            <li [title]="item.Batch">{{item.Batch}}</li>
+            <li>
+              <div class="m-select">
+                <i class="iqon-xia"></i>
+                <select name="deliveryType" [(ngModel)]="item.ConsignmentModeID" #deliveryType="ngModel">
+                  <option value="">-请选择</option>
+                  <option *ngFor="let item of deliveryTypeList" [ngValue]="item.ConsignmentModeID">{{item.Name}}</option>
+                </select>
+              </div>
+            </li>
+            <li [title]="item.Remark || ''">{{item.Remark}}</li>
+            <li><input class="m-infor-input" type="text" [(ngModel)]="item.SalesUnit" [ngClass]="{'m-input-warn': false}"></li>
+            <li *ngIf="num > 1" style="width:45px;" (click)="materialChange(item,i)">
+              <i class="iqon-eachother m-dialog-head-change" style="font-size:14px;vertical-align: middle;"></i>
+            </li>
+            <li class="m-info-btn" (click)="delMaterial(partyInfo.MaterialList,i)">-
+              <!--<span>删除该行</span>--></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 厂商直发不用下面提示 -->
+      <div class="m-warn-tip" style="margin-top:10px;width:100%;"><span *ngIf="partyInfo.Deliverinfo.IsDelegate&&orderTypeId != '0005'">当前送达方信息与合同发生变化，请同时提交委托发货原件给商务</span><span *ngIf="rebateAmount==1.00" style="float:right;">物料返款最大返款率不得超过百分之三十</span></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,273 @@
+
+<div class="m-home-pageR clearfix">
+	<div class="m-boardtop clearfix">
+		<div class="m-crumb">
+			<ul>
+				<li class="marginr30"  style="cursor:pointer"><a [ngClass]="{'m-li-active':myApplyShow}" (click)="showApplyList()">我的申请</a></li>
+				<li style="cursor:pointer"><a [ngClass]="{'m-li-active':myApproveShow}" (click)="showApproveList()">我的审批</a><span class="m-num">{{myWaitNum}}</span></li>
+			</ul>
+		</div>
+		<div class="m-dropdown g-fr">
+			<button class="m-btn-main-2" [routerLink]="['/borrow/apply/borrow']" >+ 新建申请</button>
+			<!--<ul class="m-dropdown-option">
+				<li>
+					<i class="iqon-direct-right"></i>
+					<a [routerLink]="['/borrow/apply/borrow']" style="color:#4cc9a7" target="_self">新建借用申请</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建实物归还申请</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建借用转移申请</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建借用转销售申请</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建借用额度申请</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建冻结人员信息</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建发货平台和库存地</a>
+				</li>
+				<li>
+					
+					<a [routerLink]="['/temporarysave/edit-data']" style="color:#4cc9a7" target="_blank">新建财年调整</a>
+				</li>
+			</ul>-->
+			</div>
+		</div>
+    <!--搜索-->
+    <div class="m-list-menu"  *ngIf="myApplyShow">
+        <ul class="m-state">
+            <li [ngClass]="{'active': query.flowStatus == '1'}" (click)="search1('1')">审批中</li>
+            <li [ngClass]="{'active': query.flowStatus == '3'}" (click)="search1('3')">已完成</li>
+			<li [ngClass]="{'active': query.flowStatus == ''}"  (click)="search1('')">全部</li>
+            <li [ngClass]="{'active': query.flowStatus == '0'}" (click)="search1('0')">草稿</li>
+            
+			<!--<input type="hidden" [(ngModel)]="query.flowStatus" name="flowStatus" value="0" (keyup.enter)="search()">-->
+        </ul>
+    </div>
+	<div class="m-list-menu"  *ngIf="myApproveShow">
+    <ul class="m-state">
+      <li [ngClass]="{'active': query1.flowStatus == '0'}" (click)="search2('0')">待我审批</li>
+      <li [ngClass]="{'active': query1.flowStatus == '1'}" (click)="search2('1')">我已审批</li>
+      <li [ngClass]="{'active': query1.flowStatus == ''}" (click)="search2('')">全部</li>
+    </ul>
+  </div>
+    <!--表格-->
+    <div class="m-content-right" *ngIf="myApplyShow">
+		<div class="m-noresult" [ngClass]="{'hide':borrowApplyList && borrowApplyList.length > 0}">
+					<loading [show]="loading"></loading>
+					<div class="m-noresult-msg">
+						<i class="iqon-query"></i>
+						<p class="m-noresult-notice">
+							很抱歉，没有找到有关的信息
+						</p>
+						<p class="m-p-notice">温馨提示：请检查您输入的是否正确</p>
+					</div>
+				</div>
+    		<ul class="table-uls" [ngClass]="{'hide':borrowApplyList && borrowApplyList.length == 0}">
+    			<li class="table-list" *ngFor="let item of borrowApplyList;index as i" (click)="openBorrowPage(item.applyId)">
+    				<div class="table-list-header">
+    					<div class="list-info">
+    						<p>{{item.createDate|iqDate:'YYYY-MM-DD' }}</p>
+    						<div><p>主申请单号</p><span>{{item.mainApplyNo}}</span></div>
+    						<div><p>子申请单号</p><span>{{item.subApplyNo}}---</span></div>
+    					</div>
+    					<div class="m-user-info m-user-infors">
+			              <!--<img alt="纪永凤" class="m-user-img" src="assets/default-user.png">-->
+			              <span class="m-user-name">{{item.createUserName}}/</span>
+			              <span class="m-user-ename">{{item.createUserItCode}}</span>
+			            </div>
+    				</div>
+    				<div class="table-list-body">
+    					<ul class="list-body-uls">
+    						<li>
+    							<h4>{{item.borrowCustomerName}}</h4>
+    						</li>
+    								<li>
+									<ul class="list-body-uls-tree">
+										<li>
+											<label  style="letter-spacing: 0.6px;" >业务范围编号</label>
+											<span>{{item.businessScope}}</span>
+										</li>
+											<li>
+											<label >项目名称</label>
+											<span>{{item.projectName}}</span>
+										</li>
+										<li>
+											<label >预留号</label>
+											<span>{{item.reservationNo}}</span>
+										</li>
+										<li>
+											<label >库存地</label>
+											<span>{{item.inventory}}</span>
+										</li>
+										<!--<li>
+											<label >借用总金额</label>
+											<span>{{item.borrowTotalAmount}}</span>
+										</li>
+									
+										<li>
+											<label style="letter-spacing: 7.2px;">借用金额</label>
+											<p><span>{{item.borrowAmount}}</span></p>
+										</li>-->
+									</ul>
+								</li>
+								<li>
+									<ul class="list-body-uls-tree">
+										<li>
+											<label style="letter-spacing: 1.6px;">借用总金额</label>
+											<span>{{item.borrowTotalAmount}}</span>
+										</li>
+										<li>
+											<label >借用金额</label>
+											<p><span>{{item.borrowAmount}}</span></p>
+										</li>
+										<li>
+											<label >借用属性</label>
+											<span>{{item.borrowAttributeName}}</span>
+										</li>
+										
+										<li>
+											<label>借用日期</label>
+											<p><span>{{item.borrowDate|iqDate:'YYYY-MM-DD'}}</span></p>
+										</li>
+									</ul>
+								</li>
+    						<li class="user-approve">
+    							<p>
+    								<i class="iqon-audit2"></i>
+    								<span>{{item.flowCurrNodeName}}</span>
+    							</p>
+    							<p class="m-user-info"> 
+    								<!--<span class="m-user-name">张新颖</span>-->
+      								<span class="m-user-ename">{{item.currApprAuthors}}</span>
+    							</p>
+    						</li>
+    					</ul>
+    				</div>
+    			</li>
+    		</ul>
+			<!--<div class="m-pop-up">
+				<i class="iqon-shang"></i>
+				<div class="m-pop-content">
+		            <div class="m-user-info-small m-user-info-big">
+		              <div class="m-user-noimg m-user-noimgs">新颖</div>
+		              <span class="m-user-name">张新颖</span>
+		              <span class="m-user-ename">zhangxyaa</span>
+		            </div>
+		            <ul class="uls-tree">
+						<li>
+							<label>本部名称</label>
+							<span>联想终端</span>
+						</li>
+						<li>
+							<label>事业部名称</label>
+							<span>E53-DCG-Think业务块</span>
+						</li>
+						<li>
+							<label>归属平台</label>
+							<span>北京</span>
+						</li>
+					</ul>
+				</div>
+			</div>-->
+			<iq-pager [data]="pagerData" (onChange)="onChangePager($event)"></iq-pager>
+    </div>
+ <div class="m-content-right" *ngIf="myApproveShow">
+				<!--搜索结果缺省页开始-->
+				<div class="m-noresult" [ngClass]="{'hide':borrowApplyList1 && borrowApplyList1.length > 0}">
+					<loading [show]="loading"></loading>
+					<div class="m-noresult-msg">
+						<i class="iqon-query"></i>
+						<p class="m-noresult-notice">
+							很抱歉，没有找到有关的信息
+						</p>
+						<p class="m-p-notice">温馨提示：请检查您输入的是否正确</p>
+					</div>
+				</div>
+    		<ul class="table-uls"  [ngClass]="{'hide':borrowApplyList1 && borrowApplyList1.length == 0}">
+    			<li class="table-list" *ngFor="let item of borrowApplyList1;index as i" (click)="openBorrowPage(item.applyId)">
+    				<div class="table-list-header">
+    					<div class="list-info">
+    						<p>{{item.createDate|iqDate:'YYYY-MM-DD' }}</p>
+    						<div><p>主申请单号</p><span>{{item.mainApplyNo}}</span></div>
+    						<div><p>子申请单号</p><span>{{item.subApplyNo}}</span></div>
+    					</div>
+    					<div class="m-user-info m-user-infors">
+			              <!--<img alt="纪永凤" class="m-user-img" src="assets/default-user.png">-->
+			               <span class="m-user-name">{{item.createUserName}}/</span>
+			              <span class="m-user-ename">{{item.createUserItCode}}</span>
+			            </div>
+    				</div>
+    				<div class="table-list-body">
+    					<ul class="list-body-uls">
+    						<li>
+    							<h4>{{item.borrowCustomerName}}</h4>
+    						</li>
+    						<li>
+    							<ul class="list-body-uls-tree">
+    								<li>
+    									<label>业务范围编号</label>
+    									<span>{{item.businessScope}}</span>
+    								</li>
+    								<li>
+    									<label>借用总金额</label>
+    									<span>{{item.borrowTotalAmount}}</span>
+    								</li>
+    								<li>
+    									<label>项目名称</label>
+    									<span>{{item.projectName}}</span>
+    								</li>
+    								<li>
+    									<label>借用金额</label>
+    									<p><span>{{item.borrowAmount}}</span></p>
+    								</li>
+    							</ul>
+    						</li>
+    						<li>
+    							<ul class="list-body-uls-tree">
+    								<li>
+    									<label>预留号</label>
+    									<span>{{item.reservationNo}}</span>
+    								</li>
+    								<li>
+    									<label>借用属性</label>
+    									<span>{{item.borrowAttributeName}}</span>
+    								</li>
+    								<li>
+    									<label>库存地</label>
+    									<span>{{item.inventory}}</span>
+    								</li>
+    								<li>
+    									<label>借用日期</label>
+    									<p><span>{{item.borrowDate|iqDate:'YYYY-MM-DD'}}</span></p>
+    								</li>
+    							</ul>
+    						</li>
+    						<li class="user-approve">
+    							<p>
+    								<i class="iqon-audit2"></i>
+    								<span>{{item.flowCurrNodeName}}</span>
+    							</p>
+    							<p class="m-user-info"> 
+      								<span class="m-user-ename">{{item.currApprAuthors}}</span>
+    							</p>
+    						</li>
+    					</ul>
+    				</div>
+    			</li>
+    		</ul>
+			<iq-pager [data]="pagerData" (onChange)="onChangePager2($event)"></iq-pager>
+    </div>
+</div>

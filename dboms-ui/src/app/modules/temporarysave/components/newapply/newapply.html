@@ -1,0 +1,165 @@
+<div class="m-cnm">
+    <!-- title -->
+    <h5>新建入库申请</h5>
+    <!-- 个人info -->
+    <div class="m-cnm-content1 m-flex-box">
+        <div class="m-flex-left">
+            <p class="fontweightb marginr15">申请人</p>
+            <div class="m-user-info marginr25">
+                <img alt="纪永凤" class="m-user-img" src="assets/default-user.png">
+                <span class="m-user-name">纪永凤</span>
+                <span class="m-user-ename">jiyf</span>
+                <i class="iqon-close-m"></i>
+            </div>
+            <div class="m-user-change">
+                <i class="iqon-eachother"></i>替换
+            </div>
+        </div>
+        <div class="m-cnm-form m-cnm-tips m-flex-right">
+            <p class="m-cnm-form-title">联系方式</p>
+            <div class="m-cnm-input">
+                <input type="text" name="" placeholder="010-12341234">
+            </div>
+        </div>
+    </div>
+    <!--入库物料信息-->
+    <div class="m-cnm-content1">
+        <div class="m-cnm-title">
+            <h5>入库物料信息</h5>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>暂存类别</p>
+            <div class="m-select m-cnm-select-style1">
+                <i class="iqon-xia"></i>
+                <select>
+                    <option value="">请选择暂存类别</option>
+                    <option *ngFor="let list of factory">{{list}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>暂存原因</p>
+            <div class="m-select m-cnm-select-style1">
+                <i class="iqon-xia"></i>
+                <select>
+                    <option value="">请选择暂存原因</option>
+                    <option *ngFor="let list of mSAPcode">{{list}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>相关参考号</p>
+            <div class="m-cnm-input">
+                <input [(ngModel)]="describeValueCN" (blur)="verificationCN()" required type="text" name="" placeholder="请填写相关参考号">
+            </div>
+            <p class="m-p-warn" *ngIf="isdescribeErrShowCN">{{describeErrCN}}</p>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>入库库房</p>
+            <div class="m-select m-cnm-select-style1">
+                <i class="iqon-xia"></i>
+                <select>
+                    <option value="">请选择入库库房</option>
+                    <option *ngFor="let list of mSAPcode">{{list}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>工厂</p>
+            <div class="m-select m-cnm-select-style1">
+                <i class="iqon-xia"></i>
+                <select>
+                    <option value="">请选择工厂</option>
+                    <option *ngFor="let list of mSAPcode">{{list}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>归属平台</p>
+            <div class="m-select m-cnm-select-style1">
+                <i class="iqon-xia"></i>
+                <select>
+                    <option value="">请选择归属平台</option>
+                    <option *ngFor="let list of mSAPcode">{{list}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>警示存放天数</p>
+            <div class="m-cnm-input">
+                <input [(ngModel)]="describeValueCN" (blur)="verificationCN()" required type="text" name="" placeholder="请填写警示存放天数">
+            </div>
+            <p class="m-p-warn" *ngIf="isdescribeErrShowCN">{{describeErrCN}}</p>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>预计清理日期</p>
+            <div class="m-cnm-input">
+                <input [(ngModel)]="describeValueCN" (blur)="verificationCN()" required type="text" name="" placeholder="请填写预计清理日期">
+            </div>
+            <p class="m-p-warn" *ngIf="isdescribeErrShowCN">{{describeErrCN}}</p>
+        </div>
+        <div class="m-cnm-form m-cnm-tips">
+            <p class="m-cnm-form-title"><span class="m-form-need">*</span>备注</p>
+            <div class="m-cnm-input">
+                <input [(ngModel)]="describeValueCN" (blur)="verificationCN()" required type="text" name="" placeholder="请填写备注">
+            </div>
+            <p class="m-p-warn" *ngIf="isdescribeErrShowCN">{{describeErrCN}}</p>
+        </div>
+        <div class="m-cnm-form m-cnm-tips cleardefault">
+            <button class="m-btn-confirm" (click)="seach()">搜索</button>
+            <button class="m-btn-confirm width100" (click)="reset()">重置</button>
+            <button class="m-btn-confirm width100" (click)="export()">导出EXCEL</button>
+        </div>
+    </div>
+
+    <!--入库明细-->
+    <div class="m-cnm-content1">
+        <div class="m-cnm-title">
+            <h5>入库明细</h5>
+        </div>
+        <div class="apply-finance-inforL marginl">
+            <div class="apply-fin-table">
+                <table class="m-info-table">
+                    <thead>
+                        <tr>
+                            <th class="width45">序号</th>
+                            <th>物料编号</th>
+                            <th>物料名称</th>
+                            <th>批次</th>
+                            <th>库存地</th>
+                            <th>应入数量(ERP)</th>
+                            <th>实入数量</th>
+                            <th>金额/元</th>
+                            <th>单位重量/KG</th>
+                            <th>单位体积/CDM</th>
+                            <th>总重量/KG</th>
+                            <th>总体积/CDM</th>
+                            <th>ERP行项目</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of examineMoney">
+                            <td><input type="text"  [(ngModel)]="item.num"></td>
+                            <td><input type="text" [(ngModel)]="item.matenum"></td>
+                            <td><input type="text" [(ngModel)]="item.matename"></td>
+                            <td><input type="text" [(ngModel)]="item.batch"></td>
+                            <td><input type="text"  [(ngModel)]="item.Inventory"></td>
+                            <td><input type="text"  [(ngModel)]="item.goalnum"></td>
+                            <td><input type="text" [(ngModel)]="item.actualrnum"></td>
+                            <td><input type="text"  [(ngModel)]="item.money"></td>
+                            <td><input type="text"  [(ngModel)]="item.weight"></td>
+                            <td><input type="text"  [(ngModel)]="item.volume"></td>
+                            <td><input type="text"  [(ngModel)]="item.allweight"></td>
+                            <td><input type="text"  [(ngModel)]="item.allvolume"></td>
+                            <td><input type="text"  [(ngModel)]="item.row"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="m-commonly-btn">
+        <button class="m-btn-confirm" (click)="submit()">提交</button>
+        <button class="m-btn-default m-btn-tempsave">暂存</button>
+        <button class="m-btn-cancel2" (click)="cancel()">取消</button>
+    </div>

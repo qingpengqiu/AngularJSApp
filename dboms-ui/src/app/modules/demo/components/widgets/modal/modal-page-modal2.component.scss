@@ -1,0 +1,22 @@
+.modal-side{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 70%;
+  z-index: 1055;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+
+  .modal-content{
+    height: 100%;
+  }
+  .modal-footer{
+    position: fixed;
+    bottom:0;
+  }
+}
+.modal-backdrop{
+  z-index: 1051;
+}

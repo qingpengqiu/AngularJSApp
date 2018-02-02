@@ -1,0 +1,37 @@
+<div class="g-hdp">
+
+    <div class="g-list">
+        <ul class="m-usertree">
+           <li [ngClass]="{'active':pageindex==1}" (click)="pagechange(1)">     
+              <a routerLink="/temporarysave/inwarehousemanage">入库管理</a>
+           </li>
+           <li [ngClass]="{'active':pageindex==2}" (click)="pagechange(2)">
+               <a routerLink="/temporarysave/outwarehousemanage">出库管理</a>
+           </li>
+           <li [ngClass]="{'active':pageindex==3}" (click)="pagechange(3)">
+                <a routerLink="/temporarysave/inorderfind">入库单查询</a>
+            </li>
+            <li [ngClass]="{'active':pageindex==4}" (click)="pagechange(4)">
+                <a routerLink="/temporarysave/outorderfind">出库单查询</a>
+            </li>
+            <li [ngClass]="{'active':pageindex==5,'open':switchtype}" (click)="pagechange(5)">
+                <a href="javascript:;" (click)="switch()">在库管理</a>
+                <i class="iqon-angle-right"></i>
+                <ul class="m-tree">
+                    <li><a routerLink="/temporarysave/materielstockfind">物料库存查询</a></li>
+                    <li><a routerLink="/temporarysave/innerwarehouseinfofind">在库明细查询</a></li>
+                    <li><a routerLink="/temporarysave/tablemanage">报表管理</a></li>
+                    <li><a routerLink="/temporarysave/warehousetransform">库内转储</a></li>
+                    <li><a routerLink="/temporarysave/financetable">财务统计表</a></li>
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+     <div class="g-right">
+        <router-outlet></router-outlet> 
+     </div>
+    
+</div>
+
+

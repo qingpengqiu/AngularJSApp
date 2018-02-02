@@ -1,0 +1,39 @@
+<div class="modal" style="display:block;"  (click)="close()">
+  <div class="modal-side" (click)="stopClick($event)">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" (click)="close()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+
+        this is a modal! <br>
+        SomeThing is {{ something | json }}； <br>
+
+        data is {{ passData | json }} <br>
+        <button type="button" name="button" (click)="destroy()">销毁自己！！！</button>
+        <br>
+        内层窗口：
+
+          <ul>
+            <li *ngFor="let item of modalList">
+              {{item.id + " "}}{{item.cf.name}} <a (click)="show(item.modal)">打开</a>
+            </li>
+          </ul>
+          弹出框：
+          <button type="button" (click)="add(1)">添加</button>
+          <button type="button" (click)="addAndShow(1)">添加并显示</button>
+          side：
+          <button type="button" (click)="add(2)">添加</button>
+          <button type="button" (click)="addAndShow(2)">添加并显示</button>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="close()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

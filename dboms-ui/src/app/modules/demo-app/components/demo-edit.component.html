@@ -1,0 +1,25 @@
+<div>
+  <div *ngIf="demo">
+    <form>
+      <div class="form-group">
+        <label for="demoid">ID</label>
+        <input [(ngModel)]="demo.id" class="form-control" name="demoid" id="demoid" placeholder="请输入id">
+      </div>
+      <div class="form-group">
+        <label for="demoname">姓名</label>
+        <input [(ngModel)]="demo.name" class="form-control" name="demoname" id="demoname" placeholder="请输入姓名">
+      </div>
+      <div class="form-group">
+        <label for="demoage">年龄</label>
+        <input type="number" [(ngModel)]="demo.age" class="form-control" name="demoage" id="demoage" placeholder="请输入年龄">
+      </div>
+      <div class="form-group">
+        <label>年龄pipe</label>
+        <p class="form-control-static">{{ demo.age | pipe_age }}</p>
+      </div>
+    </form>
+  </div>
+  <br>
+  <a class="btn btn-default" (click)="saveDemo()">保存</a>&nbsp;
+  <a class="btn btn-default" (click)="back()">返回</a>
+</div>

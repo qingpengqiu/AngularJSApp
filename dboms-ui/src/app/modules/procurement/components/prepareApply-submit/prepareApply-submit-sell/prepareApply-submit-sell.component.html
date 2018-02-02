@@ -1,0 +1,121 @@
+<div style="padding:0 25px 15px" class="sell-con">
+    <tab-switch [tabList]="tabList" [active]="activeTabId" confirmText="确定删除？" [canAdd]="!onlyView" [canDelete]="!onlyView" (onChange)="onClickTab($event)"
+        (onDelete)="deleteTab($event)" (addOne)="addTab($event)"></tab-switch>
+    <add-prepareContractModal *ngIf="newContractApplyShow" (onCompleteAddContract)="onCompleteAddContract($event)"></add-prepareContractModal>
+    <!-- 展示列表 -->
+    <div *ngFor="let showEle of showList;index as showIndex">
+        <div class="m-tab-con" *ngIf="showEle.salecontractcode==activeTabId">
+            <!-- 存储列表 -->
+            <div *ngFor="let saveEle of saleListSave;index as saveIndex">
+                <div *ngIf="saveEle.salecontractcode==activeTabId">
+                    <p class="excessprompt-str" *ngIf="showEle.invalid">此单采购含税金额大于销售金额</p>
+                    <ul class="addApp-base-list">
+                        <li class="col-md-6">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">项目名称</label>
+                                <span class="padSpan">{{showEle.ProjectName}}</span>
+                            </div>
+                        </li>
+                        <li class="col-md-6">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">客户名称</label>
+                                <span class="padSpan">{{showEle.BuyerName}}</span>
+                            </div>
+                        </li>
+                        <li class="col-md-6">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">销售金额</label>
+                                <span class="padSpan">{{showEle.ContractMoney}}</span>
+                            </div>
+                        </li>
+                        <li *ngIf="!IsRMB" class="col-md-6">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">
+                                    <i class="addApp-form-tips">*</i>本次采购外币金额
+                                </label>
+                                <input class="addApp-form-input" type="text" *ngIf="showEle.foreignIsFillin&&!onlyView" [(ngModel)]=saveEle.foreigncurrencymoney
+                                    (blur)="getOtherMoney(saveEle.foreigncurrencymoney,saveIndex,true)">
+                                <span class="padSpan" *ngIf="!showEle.foreignIsFillin||onlyView">{{saveEle.foreigncurrencymoney}}</span>
+                            </div>
+                        </li>
+                        <li class="col-md-6">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">
+                                    <i class="addApp-form-tips">*</i>本次采购未税总金额
+                                </label>
+                                <input class="addApp-form-input" type="text" *ngIf="IsRMB&&showEle.excludetaxIsFillin&&!onlyView" [(ngModel)]=saveEle.excludetaxmoney
+                                    (blur)="getTaxIncluSiveMoney(saveEle.excludetaxmoney,saveIndex,true)">
+                                <span class="padSpan" *ngIf="!showEle.excludetaxIsFillin||onlyView||!IsRMB">{{saveEle.excludetaxmoney}}</span>
+                            </div>
+                        </li>
+                        <li class="col-md-6">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">本次采购含税总金额</label>
+                                <span class="padSpan">{{saveEle.taxinclusivemoney}}</span>
+                            </div>
+                        </li>
+                        <li class="col-md-6 col-md-a">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">累计采购含税金额</label>
+                                <span class="padSpan">{{showEle.PurchaseTaxMoney}}</span>
+                            </div>
+                        </li>
+                        <li class="col-md-10">
+                            <div class="addApp-form-item">
+                                <label class="addApp-form-label">合同附件</label>
+                                <div class="">
+                                    <a href="javascript:;" class="colorA dis-wid col-md-4" *ngFor="let item of showEle.Bids">
+                                        <span (click)="openContractPdf(item.AccessoryURL)" title="{{item.AccessoryName}}">{{item.AccessoryName}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="addApp-ch-before">
+                        <table class="m-info-table bgcf w100">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="scroll-w" [ngClass]="{'w141':showEle.ProductDetails && showEle.ProductDetails.length >= 10}" width="140px"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="7" class="m-center">
+                                        <p>
+                                            <span>产品明细</span>
+                                            <i class="iqon-fold mid-h cursor-po" #hideDisi (click)="hideDis('hideDisi')"></i>
+                                        </p>
+                                    </th>
+                                </tr>
+                                <tr *ngIf="hideDisdata">
+                                    <th>序号</th>
+                                    <th>货物名称</th>
+                                    <th>型号</th>
+                                    <th>数量</th>
+                                    <th>单价</th>
+                                    <th>金额（元）</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="hideDisdata">
+                                <tr *ngFor="let item of showEle.ProductDetails;let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.ProductName}}</td>
+                                    <td>{{item.Model}}</td>
+                                    <td>{{item.Qty}}</td>
+                                    <td>{{item.Price}}</td>
+                                    <td>{{item.TotalPrice}}</td>
+                                    <td width="140px">{{item.Remark}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

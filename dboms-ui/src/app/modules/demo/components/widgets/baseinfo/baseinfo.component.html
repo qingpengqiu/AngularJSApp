@@ -1,0 +1,95 @@
+<div class="h-30"></div>
+<div class="container">
+  <div class="row">
+    <h4>基础信息</h4>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-sm-1 control-label">申请人：</label>
+      <div class="col-sm-3">
+        {{ baseInfo.applyItcode }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1 control-label">申请日期：</label>
+      <div class="col-sm-3">
+        {{ baseInfo.applyDate }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="tel">电话：</label>
+      <div class="col-sm-3">
+        {{ isView?baseInfo.tel:'' }}
+        <div *ngIf="!isView">
+          <input type="text" class="form-control" id="tel" placeholder="" [value]="baseInfo.tel">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1 control-label">成本中心：</label>
+      <div class="col-sm-3">
+        {{ baseInfo.constCenter }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="">公司：</label>
+      <div class="col-sm-3">
+        <ng-select [items]="baseInfo.companys" placeholder="请选择"></ng-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="">业务范围：</label>
+      <div class="col-sm-3">
+        <ng-select [items]="baseInfo.businesses" placeholder="请选择"></ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="">发票类型：</label>
+      <div class="col-sm-3">
+        <ng-select [items]="baseInfo.invoicetypes" placeholder="请选择"></ng-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="">所属平台：</label>
+      <div class="col-sm-3">
+        <ng-select [items]="baseInfo.platforms" placeholder="请选择"></ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="">冲红类型：</label>
+      <div class="col-sm-3">
+        <ng-select [items]="baseInfo.revisetypes" (selected)="selected($event)" placeholder="请选择"></ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="reviseTypeChildren.length>0">
+    <div class="form-group">
+      <span *ngFor="let item of reviseTypeChildren">
+        <span *ngIf="isCheck">
+          <input type="checkbox" name="reviseSubType" [value]="item" [id]="item">
+        </span>
+        <span *ngIf="!isCheck">
+          <input type="radio" name="reviseSubType" [value]="item" [id]="item">
+        </span>
+        <label [for]="item">{{ item }}</label>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label class="col-sm-1 control-label" for="">说明原因：</label>
+      <div class="col-sm-9">
+        <textarea name="" id="" cols="100" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+<iq-financeinfo></iq-financeinfo>

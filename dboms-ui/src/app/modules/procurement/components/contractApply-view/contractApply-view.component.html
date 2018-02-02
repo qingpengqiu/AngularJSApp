@@ -1,0 +1,300 @@
+<div style="">
+  <div class="apply-progress">
+    <div class="apply-p-left addApply-container">
+      <h1 class="apply-tit-h1">查看合同采购申请</h1>
+      <!-- 基础信息 -->
+      <div class="apply-p-base clearfix apply-p-infor">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">基础信息</span>
+        </div>
+          <div class="m-exm-item">
+            <ul>
+              <li class="m-exm-half">
+                <div class="m-exm-label">申请人</div>
+                <div class="m-exm-cont">
+                  <div class="m-user-info-small">
+                    <span class="m-user-name">{{contractData.username}}</span>
+                    <span class="m-user-ename">{{contractData.itcode}}</span>
+                  </div>
+                </div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">申请日期</div>
+                <div class="m-exm-cont">{{contractData.addtime}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">电话</div>
+                <div class="m-exm-cont">{{contractData.phone}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">本部</div>
+                <div class="m-exm-cont">{{contractData.homeoffice}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">事业部</div>
+                <div class="m-exm-cont">{{contractData.bizdivision}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">平台</div>
+                <div class="m-exm-cont">{{contractData.plateform}}</div>
+              </li>
+              <li class="m-exm-half" *ngIf="contractData.orderno">
+                <div class="m-exm-label">采购订单号</div>
+                <div class="m-exm-cont">{{contractData.orderno}}</div>
+              </li>
+            </ul>
+          </div>
+      </div>
+      <!-- 采购信息 -->
+      <div class="apply-p-base mt15 clearfix">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购信息</span>
+        </div>
+        <div class="apply-p-infor">
+          <div class="m-exm-item">
+            <ul>
+             <li class="m-exm-half" style="width:100%" *ngIf="contractData.TemplateID" >
+                <div class="m-exm-label">模板名称</div>
+                <div class="m-exm-cont">{{TemplateName}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">我方主体</div>
+                <div class="m-exm-cont" [ngClass]="{'warn-blue':blueFlag}">{{contractData.company}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">工厂</div>
+                <div class="m-exm-cont">{{contractData.factory}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">供应商</div>
+                <div class="m-exm-cont" [ngClass]="{'warn-blue':blueFlag}">{{contractData.vendor}}</div>
+              </li>
+              <li class="m-exm-half" *ngIf="IsCenter">
+                <div class="m-exm-label">对方业务范围</div>
+                <div class="m-exm-cont">{{contractData.vendorbizscope}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">税率</div>
+                <div class="m-exm-cont">{{contractData.taxratename}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">币种</div>
+                <div class="m-exm-cont">{{contractData.currency}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">预计销售时间</div>
+                <div class="m-exm-cont">{{contractData.preselldate}}</div>
+              </li>
+              <li class="m-exm-half" *ngIf="!ISRMB">
+                <div class="m-exm-label">外币总金额</div>
+                <div class="m-exm-cont">{{contractData.foreigncurrencymoney}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">未税总金额</div>
+                <div class="m-exm-cont">{{contractData.excludetaxmoney}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">含税总金额</div>
+                <div class="m-exm-cont" [ngClass]="{'warn-blue':blueFlag}">{{contractData.taxinclusivemoney}}</div>
+              </li>
+              <li class="m-exm-half" *ngIf="!ISRMB">
+                <div class="m-exm-label">交货条件</div>
+                <div class="m-exm-cont">{{contractData.internationaltradelocation}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{contractData.internationaltradeterms}}</div>
+              </li>
+              <li class="m-exm-half" *ngIf="!ISRMB">
+                <div class="m-exm-label">收货人</div>
+                <div class="m-exm-cont">{{contractData.receiver}}</div>
+              </li>
+              <li class="m-exm-half">
+                <div class="m-exm-label">需求跟踪号</div>
+                <div class="m-exm-cont">{{contractData.traceno}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--采购清单 -->
+      <div class="apply-finance-infor clearfix" style="margin-top: 10px">
+        <div class="m-dialog-head clearfloat">
+          <span class="m-dialog-head-change progress-txt">采购清单</span>
+          <i class="iqon-fold" (click)="procurementListShow=!procurementListShow"></i>
+        </div>
+        <div *ngIf="procurementListShow">
+          <div class="btn-content">
+            <div class="left font-small">
+                  <span>是否直接写入ERP</span>
+                  <label class="label-first">
+                      <input type="radio" name="directly" [disabled]="true" [(ngModel)]="contractData.istoerp" #directly="ngModel" value="true" icheck>
+                      是
+                    </label>
+                    <label>
+                      <input type="radio" name="directly" [disabled]="true" [(ngModel)]="contractData.istoerp" #directly="ngModel" value="false" icheck>
+                      否
+                    </label>
+              </div>
+              <div class="right">
+                  <view-child-modal *ngIf="viewChildFlag" [viewChildTopData]=viewChildTopData (hideMes)="hideMes($event)"> </view-child-modal>
+                  <button class="m-btn-confirm min-btn" (click)="showOrder()">查看采购订单</button>
+              </div>
+          </div>
+          <div class="apply-finance-l">
+            <table class="m-info-table">
+              <thead>
+                <tr>
+                  <td width="5%"></td>
+                  <td width="10%"></td>
+                  <td width="200px"></td>
+                  <td width="60px"></td>
+                  <td width="80px"></td>
+                  <td width="80px"></td>
+                  <td width="60px"></td>
+                  <td width="110px"></td>
+                  <td width="60px"></td>
+                  <td class="w140"></td>
+                </tr>
+                <tr class="m-infor-tr">
+                  <th colspan="10" class="m-text-center change">
+                    <span class="col-md-3">物料数量合计&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{meterialNum}}</span>
+                    <span class="col-md-3" *ngIf="!ISRMB">外币总金额&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{contractData.foreigncurrencymoney}}</span>
+                    <span class="col-md-3">未税总金额&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{contractData.excludetaxmoney}}</span>
+                    <span class="col-md-3">含税总金额&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{contractData.taxinclusivemoney}}</span>
+                  </th>
+                </tr>
+                <tr class="m-center">
+                  <th>序号</th>
+                  <th>物料号</th>
+                  <th>物料描述</th>
+                  <th>数量</th>
+                  <th>不含税单价</th>
+                  <th>不含税总价</th>
+                  <th>库存地</th>
+                  <th>需求跟踪号</th>
+                  <th>批次</th>
+                  <th>合同号</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of contractData.PurchaseRequisitionDetailsList;let i = index" class="m-center">
+                  <td width="5%">{{i+1}}</td>
+                  <td width="10%">{{item.MaterialNumber}}</td>
+                  <td width="200px">{{item.MaterialDescription}}</td>
+                  <td width="60px">{{item.Count}}</td>
+                  <td width="80px">{{item.Price}}</td>
+                  <td width="80px">{{item.Amount}}</td>
+                  <td width="60px">{{item.StorageLocation}}</td>
+                  <td width="110px">{{item.traceno}}</td>
+                  <td width="60px">{{item.Batch}}</td>
+                  <!-- <td title="{{item.text}}">{{item.text}}</td> -->
+                  <td class="queto" title="{{item.MainContractCode}}" width="140px">{{item.MainContractCode}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--销售信息 -->
+      <div class="apply-finance-infor clearfix" style="margin-top: 10px">
+        <div class="m-dialog-head clearfloat">
+          <span class="m-dialog-head-change progress-txt">销售信息</span>
+        </div>
+        <div class="addApp-base-infor">
+          <contractApply-submit-sell [BackPurchaseList]=BackPurchaseList [PurchaseRequisitionSaleContractListData]=PurchaseRequisitionSaleContractListData
+            [IsRMB]=ISRMB [sellView]=sellView [currencyArr]=currencyArr></contractApply-submit-sell>
+        </div>
+      </div>
+      <!--支持文件-->
+      <div class="apply-finance-infor">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">支持文件</span>
+        </div>
+        <div class="btP10">
+          <div class="addApp-form-item">
+            <label class="addApp-form-label tp20">附件文件</label>
+            <ul>
+              <li class="pdLi" *ngFor="let item of AccessorySee_one;index as i">
+                  <span class="pdf cur-point" (click)="checkSeal(item.AccessoryURL)">{{item.AccessoryName}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--采购合同用印文件-->
+      <div class="apply-finance-infor">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">采购合同用印文件</span>
+        </div>
+        <div class="btP10">
+          <div class="addApp-form-item">
+            <ul style="width:100%">
+              <li>
+                <label class="addApp-form-label tp20">用印金额</label>
+                <div class="tpContent">{{contractData.sealmoney}}</div>
+              </li>
+              <li>
+                <label class="addApp-form-label tp20">附件文件</label>
+                <ul  class="tpContent">
+                  <li class="pdLi" *ngFor="let item of AccessorySee_Two;index as i">
+                      <span class="pdf cur-point" (click)="checkSeal(item.AccessoryURL)">{{item.AccessoryName}}</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--修改记录-->
+      <div class="apply-finance-infor" *ngIf="RequisitionRecord.length>0">
+        <div class="m-dialog-head">
+          <span class="m-dialog-head-change progress-txt">修改记录</span>
+        </div>
+        <div class="addApp-base-infor">
+          <div class="fix-table-content">
+            <table class="m-info-table w100 mt10">
+              <thead>
+                <tr class="m-infor-tr">
+                  <th>申请单号</th>
+                  <th>申请日期</th>
+                  <th>申请人</th>
+                  <th>我方主体</th>
+                  <th>供应商</th>
+                  <th>含税总金额</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of RequisitionRecord;index as i">
+                 <td (click)="viewContractApply(item.ID)">
+                      <a>{{item.RequisitionNum}}</a>
+                  </td>
+                  <td>{{item.AddTime | iqDate:'YYYY-MM-DD'}}</td>
+                  <td>{{item.UserName}}</td>
+                  <td title={{item.Own}}>{{item.Own}}</td>
+                  <td title={{item.Own}}>{{item.Vendor}}</td>
+                  <td>{{item.Amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="page">
+              <iq-pager [data]="pagerData" (onChange)="onChangePage($event,1)"></iq-pager>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--审批记录-->
+      <db-wfhistory [wfHistoryData]="wfData.wfHistory"></db-wfhistory>
+      <!--审批记录 end-->
+
+      <!-- 审批意见&按钮组 -->
+      <db-wfapproval [appParms]="appParms" (onSave)="saveBillID6()" [hasSaved]="hasSaved" *ngIf="!isView&&isADP==false"></db-wfapproval>
+      <!-- 审批意见&按钮组 end -->
+
+      <!-- <div class="posRe" *ngIf="nodeFlag&&contractData.istoerp&&urlFlag">
+        <button [disabled]=tracenoFlag [ngClass]="{'bgcc':tracenoFlag}" class="m-btn-refuse apply-refuse pos50" (click)="writeERP()">写入ERP</button>
+      </div> -->
+      <db-wfadp [adpAppParms]="adpAppParms" *ngIf="!isView&&isADP==true"></db-wfadp>
+    </div>
+    <!--审批过程 -->
+    <div class="apply-p-right">
+      <db-wfview #wfview></db-wfview>
+    </div>
+  </div>
+</div>

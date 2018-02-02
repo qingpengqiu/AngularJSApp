@@ -1,0 +1,122 @@
+<!-- <ul class="maillist-left-nav m-treeconleft">
+      <li>
+        <ul>
+
+          <li [ngClass]="{'active':path=='/demo/index'}">
+              <a routerLink="/demo/index">index</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/toasty'}">
+              <a routerLink="/demo/widget/toasty">toasty</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/icheck'}">
+              <a routerLink="/demo/widget/icheck">icheck</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/public-service'}">
+              <a routerLink="/demo/widget/public-service">public-service</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/pager'}">
+              <a routerLink="/demo/widget/pager">pager</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/image-upload'}">
+              <a routerLink="/demo/widget/image-upload">image-upload</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/confirm'}">
+              <a routerLink="/demo/widget/confirm">window</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/static-resource'}">
+              <a routerLink="/demo/widget/static-resource">static-resource</a>
+          </li>
+
+          <li [ngClass]="{'active':path=='/demo/widget/page-style'}">
+              <a routerLink="/demo/widget/page-style">page-style</a>
+          </li>
+        </ul>
+      </li>
+    </ul> -->
+
+<ul class="m-usertree">
+
+  <li [ngClass]="{'open':path=='/demo/index'}">
+    <a routerLink="/demo/index">index</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/toasty'}">
+    <a routerLink="/demo/widget/toasty">toasty</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/icheck'}">
+    <a routerLink="/demo/widget/icheck">icheck</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/public-service'}">
+    <a routerLink="/demo/widget/public-service">public-service</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/pager'}">
+    <a routerLink="/demo/widget/pager">pager</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/pipes'}">
+    <a routerLink="/demo/widget/pipes">pipes</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/image-upload'}">
+    <a routerLink="/demo/widget/image-upload">image-upload</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/confirm'}">
+    <a routerLink="/demo/widget/confirm">window</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/modal'}">
+    <a routerLink="/demo/widget/confirm">自定义弹出层</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/tab-switch'}">
+    <a routerLink="/demo/widget/tab-switch">tab-switch</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/prepare-person'}">
+    <a routerLink="/demo/widget/prepare-person">prepare-person</a>
+  </li>
+
+  <li [ngClass]="{'open':path=='/demo/widget/static-resource'}">
+    <a routerLink="/demo/widget/static-resource">static-resource</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/static-resource2'}">
+    <a routerLink="/demo/widget/static-resource2">static-resource2</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/static-resource3'}">
+    <a routerLink="/demo/widget/static-resource3">static-resource3</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/user-image'}">
+    <a routerLink="/demo/widget/user-image">user-image</a>
+  </li>
+  <li [ngClass]="{'open':path=='/demo/widget/iq-select'}">
+    <a routerLink="/demo/widget/iq-select">iq-select</a>
+  </li>
+  <li [ngClass]="{'open':open}">
+    <a routerLink="/demo/widget/page-style">page-style</a>
+    <ul class="m-tree">
+      <li [ngClass]="{'active':path=='/demo/widget/page-style/my-card'}">
+        <a routerLink="/demo/widget/page-style/my-card">my-card</a>
+      </li>
+      <li [ngClass]="{'active':path=='/demo/widget/page-style/my-apply'}">
+        <a routerLink="/demo/widget/page-style/my-apply">my-apply</a>
+      </li>
+      <li [ngClass]="{'active':path=='/demo/widget/page-style/my-new-apply'}">
+        <a routerLink="/demo/widget/page-style/my-new-apply">my-new-apply</a>
+      </li>
+      <li [ngClass]="{'active':path=='/demo/widget/page-style/my-search'}">
+        <a routerLink="/demo/widget/page-style/my-search">my-search</a>
+      </li>
+    </ul>
+  </li>
+
+</ul>
+
+<router-outlet></router-outlet>

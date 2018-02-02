@@ -1,0 +1,47 @@
+<div class="">
+  <pre>
+<strong>XcBaseModal</strong> 要能转换为modal的component的接口，所有要能弹出的components必须实现它
+
+<strong>XcModalRef</strong> modal的实例对象
+{{'{'}}
+  public data:any;//初始化给modal的数据，也可用作交换数据
+  private onHideOb = new Subject(); //隐藏后的触发
+  private onShowOb = new Subject(); //打开后的触发
+  private onDestroyOb = new Subject(); //销毁后触发
+  public isOpen = false;  //表示当前实例是否处理打开状态
+  public destroyed = false; //表示当前实例是否销毁
+
+  public _componentRef:ComponentRef{{'<'}}XcBaseModal{{'>'}};//获取当前modal实例实际component的实例对象
+
+  public _componentFactory : ComponentFactory{{'<'}}XcBaseModal{{'>'}};//component的构造器，内置。
+  public _containerComponentRef : ComponentRef{{'<'}}XcModalContainerComponent{{'>'}};//component的父层结构，内置。
+
+  show() //显示
+  hide() //隐藏
+  destroy() //销毁
+  onShow//打开后的Observable
+  onHide()//隐藏后的Observable
+  onDestroy()//销毁后的Observable
+{{'}'}}
+
+<strong>XcModalService</strong> 服务，以component创建新的modal实例、获取当前modal实例
+{{'{'}}
+  getInstance(componentRef) 获取当前modal实例.componentRef为component的实例，在component中的this(此方法不能在构造上调用，因为此时component并没有创建。可以在ngx生命周期中调用即可，ngOnInit)
+  createModal(Type{{'<'}}XcBaseModal{{'>'}}) 创建一个modal,入参为component（要显示modal，还需调用modal.show())
+  destroyAll() //销毁所有
+{{'}'}}
+</pre>
+  <div class="">
+    <ul>
+      <li *ngFor="let item of modalList">
+        {{item.id + " "}}{{item.cf.name}} <a (click)="show(item.modal)">打开</a>
+      </li>
+    </ul>
+    弹出框：
+    <button type="button" class="m-btn-main-1" (click)="add(1)">添加</button>
+    <button type="button" class="m-btn-main-1" (click)="addAndShow(1)">添加并显示</button>
+    side：
+    <button type="button" class="m-btn-main-1" (click)="add(2)">添加</button>
+    <button type="button" class="m-btn-main-1" (click)="addAndShow(2)">添加并显示</button>
+  </div>
+</div>

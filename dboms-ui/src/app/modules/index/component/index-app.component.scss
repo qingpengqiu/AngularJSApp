@@ -1,0 +1,90 @@
+.sales-main{
+    .index-list{
+        padding: 0 10px;
+        overflow: auto;
+        .m-user-info{
+            width: 100%;
+            height: 60px;
+            margin-top: 20px;
+            padding: 0 10px;
+            .m-user-noimg{
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                position: absolute;
+                top: 0;
+            }
+            .m-user-names{
+                display: inline-block;
+                width: 120px;
+                margin-left: 70px;
+                >div{
+                    line-height: 20px;
+                    margin-top: 5px;
+                    .m-user-ename{
+                        float: right;
+                    }
+                    .m-user-change{
+                        line-height: auto;
+                        float: right;
+                    }
+                }
+            }
+        }
+        .m-usertree-approve {
+            margin-top: 25px;
+            padding: 0;
+            background-color: #f5f7fa;
+            > li{
+                height: 42px;
+                padding: 0 15px;
+                line-height: 42px;
+                .m-num{
+                    right: 15px;
+                }
+                .m-num-green{
+                    background-color: #7acc7f;
+                }
+            }
+        }
+        .m-usertree-apply{
+            .open{
+                background-color: #fff;
+                .my-collection{
+                    border-bottom: 1px solid #eeeeee;
+                }
+            }
+            >li>a{
+                font-size: 13px;
+                color: #c6c6c6;
+            }
+            .icon-text-right{
+                position: absolute;
+                top: 0;
+                right: 12px;
+                line-height: 45px;
+                color: #57b9f8;
+            }
+            .m-tree{
+                li{
+                    position: relative;
+                    padding-left: 25px;
+                    .icon-text-left{
+                        position: absolute;
+                        top: 0;
+                        left: 25px;
+                        line-height: 45px;
+                        color:  #ffd05b;
+                    }
+                }
+                i{
+                    color: #ff514d;
+                }
+            }
+        }
+    }
+    .g-right{
+        background-color: #f3f3f3;
+        padding: 15px 15px 15px 255px;
+    }
+}

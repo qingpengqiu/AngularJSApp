@@ -1,0 +1,14 @@
+.trans180{
+    display: inline-block;
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); /* Internet Explorer */
+    -moz-transform:rotate(180deg); /* Firefox */  
+    transition:300ms;
+}
+.trans360{
+    display: inline-block;
+    transform:rotate(360deg);
+    -ms-transform:rotate(360deg); /* Internet Explorer */
+    -moz-transform:rotate(360deg); /* Firefox */  
+    transition:300ms;
+}

@@ -1,0 +1,40 @@
+.m-dialog-head, .m-list-head {
+    background-color: #f3f4f6;   
+}
+.m-order-number .modal-body {
+    padding: 20px 25px;
+}
+.m-order-table{
+     border:none; 
+     padding: 20px;
+     margin: 0;
+     background: #fff !important;
+    .m-info-table {
+        thead{
+            background-color: #fff;
+            .m-center{
+                background-color: #f5f7fa;
+            }   
+            .m-infor-tr{
+                span{ 
+                    font-weight: bold;
+                }
+            }         
+        }
+    }
+}
+@media (min-width: 992px){
+    .col-md-4 {
+        width: 30%;
+    }
+    .col-md-4:first-child{
+        width: 40%;
+    }
+}
+.w66{
+    width: 66px;
+    width: 76px\0;
+}
+.m-order-number{
+    left: 19%!important;
+}

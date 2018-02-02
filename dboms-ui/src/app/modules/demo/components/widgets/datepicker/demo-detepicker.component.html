@@ -1,0 +1,43 @@
+<style>
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+    
+    .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
+    }
+    
+    .datepicker-con {
+        position: relative;
+    }
+    
+    .datepicker-con .datepicker {
+        position: absolute;
+        top: 40px;
+        left: 0px;
+    }
+    
+    .datepicker-con .card {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #ccc;
+    }
+    
+    .datepicker-con .card .card-header {
+        padding: 10px;
+    }
+</style>
+
+<div class="datepicker-con">
+    <div class="card" (click)="closeDatePicker()">
+        <pre class="card-block card-header"> <em *ngIf="dt">{{ getDate() | date:'shortDate'}}</em></pre>
+    </div>
+    <div class="datepicker" *ngIf="datepickerFlag">
+        <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="false" [dateDisabled]="dateDisabled" (selectionDone)="closeDatePicker()"></datepicker>
+    </div>
+</div>

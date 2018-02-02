@@ -1,0 +1,39 @@
+.demo-table tr{
+   height:26px;
+}
+
+/deep/ .border-red{
+  border:1px solid #f00 !important;
+}
+
+.demo-event-log{
+  border-radius:5px;padding:10px;
+  position:absolute;
+  float:left;
+  width:28%;
+  min-height:60px;
+  left:70%;
+  top:10%;
+  background-color:#efefef;
+
+  table{
+    width:100%;
+    .log-event{
+      color:#ff7910;
+    }
+    .log-dom pre{
+      color: #7972ff;
+      cursor: grab;
+    }
+    tr{
+      border-top:1px #ccc dashed;
+      vertical-align: top;
+    }
+    tr.first{
+      border-top:solid;
+    }
+    tr:first-child{
+      border-top:0;
+    }
+  }
+}

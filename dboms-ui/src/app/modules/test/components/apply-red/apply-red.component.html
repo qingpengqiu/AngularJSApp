@@ -1,0 +1,25 @@
+ <div class="m-home-pageL">
+        <ul class="m-usertree">
+            <li class="m-hasicon" [ngClass]="{'open':path=='/test/addApply-red/myapply'}">
+                <i class="iqon-apply"></i>
+                <a routerLink="/test/addApply-red/myapply">我的申请</a>
+               <!--  <ul class="m-tree">
+                   <li><a href="javascript:;">11111111111111111111111111111111111</a></li>
+                   <li class="active"><a href="javascript:;">222</a></li>
+                   <li><a href="javascript:;">333</a></li>
+               </ul> -->
+            </li>
+            <li class="m-hasicon" [ngClass]="{'open':path=='/test/addApply-red/myapply-ready'}">
+                <i class="iqon-appoval"></i>
+                <a routerLink="/test/addApply-red/myapply-ready">待我审批</a>
+                <span class="m-num">5</span>
+            </li>
+            <li class="m-hasicon">
+                <i class="iqon-approve"></i>
+                <a href="javascript:;">我已审批</a>
+            </li>
+        </ul>
+</div>
+<div class="m-home-pageR">
+    <router-outlet></router-outlet>
+</div>

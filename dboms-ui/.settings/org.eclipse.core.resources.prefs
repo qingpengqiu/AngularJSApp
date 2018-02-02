@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/app/modules/bill/components/bill-app.component.html=UTF-8
+encoding//src/app/modules/bill/components/common/left-nav/left-nav.component.html=UTF-8
+encoding//src/app/modules/bill/components/writeback/bill-writeback-create.component.html=UTF-8
+encoding//src/app/modules/demo/components/widgets/static-resource2/static-resource2.component.html=UTF-8
+encoding//src/app/modules/test/components/addapply/addapply.component.html=UTF-8
+encoding//src/app/modules/test/components/apply-modules/apply-modules.component.html=UTF-8
+encoding//src/app/modules/test/components/apply-progress-step1/apply-progress-step1.component.html=UTF-8
+encoding//src/app/modules/test/components/apply-progress-step2/apply-progress-step2.component.html=UTF-8
+encoding//src/app/modules/test/components/apply-progress/apply-progress.component.html=UTF-8
+encoding//src/app/modules/test/components/test-header/test-header.component.html=UTF-8
+encoding//src/app/modules/test/components/test-main-add/test-add.component.html=UTF-8
+encoding//src/app/modules/test/components/test-main-alert/test-alert.component.html=UTF-8
+encoding//src/app/modules/test/components/test-main-default/test-main-default.component.html=UTF-8
+encoding//src/app/modules/test/components/test-main/test-main.component.html=UTF-8
+encoding//src/app/modules/test/components/test-page/test-page.component.html=UTF-8
+encoding/<project>=UTF-8

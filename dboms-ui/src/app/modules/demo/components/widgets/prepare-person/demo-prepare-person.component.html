@@ -1,0 +1,44 @@
+
+<div class="m-apply">
+  <div class="m-demo-content">
+    <h3>prepare-person示例</h3>
+    <div class="demo-list">
+      <div class="demo-item">
+        <div class="title">
+          <span>
+            预备选人组件
+          </span>
+        </div>
+        <div class="description">
+          <p>
+            min属性,预备选人单元的最小数量，默认为1 <br/>
+            max属性,预备选人单元的最大数量，默认为4 <br/>
+            text属性,预备选人单元左侧,第一个字符“一”、“二”和最后一个字符“：”之间的文字，默认为空 <br/>
+            defaultNum属性,预备选人单元的默认显示个数，默认为1 <br/>
+            onChange事件,预备人员数组发生变化时返回该数组，格式为：'[ {{'{'}} person:{{'[{}'}}{{']'}} {{'}'}},... ]'
+            personList属性,已经选择的人员信息与返回结果数据结构相同。person数组内单个元素字段必传<br/>
+            {{'{'}} userID:"*",userEN:"itcode",userCN:"name" {{'}'}};也可以将id,name,itcode字段注入new Person(),该类自动把数据分别加入到user字段中<br/>
+            *内部选人组件返回数据为数组，以备多选,故此处使用数组形式<br/>
+            *userID是否存在来判断头像是否显示匿名，且其长度与无图片时头像处背景色有关
+          </p>
+        </div>
+        <div class="code-block">
+          <pre class="code">
+            {{'<'}}prepare-person min="x" max="x" text="string" defaultNum="y"
+                (onChange)="getChange($event)" {{'>'}}{{'<'}}/prepare-person{{'>'}}
+          </pre>
+        </div>
+        <div class="example">
+          <div>
+            <prepare-person #person [min]="min" [max]="max" text="级预审" defaultNum="1" [personList] ="personList"
+                (onChange)="getChange($event)"></prepare-person>
+            min:
+            <input type="text" [(ngModel)]="min">
+            max:
+            <input type="text" [(ngModel)]="max">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

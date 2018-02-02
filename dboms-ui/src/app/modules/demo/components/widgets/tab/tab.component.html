@@ -1,0 +1,34 @@
+<tabset>
+  <tab *ngFor="let tabz of tabs" [heading]="tabz" [active]="tabz.active" (select)="selectTab($event);tabz.active = true" [customClass]="tabz.customClass">
+    <table class="table table-hover dbox-table">
+      <thead>
+        <tr>
+          <th *ngFor="let item of head">
+            <div>{{item}}</div>
+          </th>
+          <th>
+            <button (click)="addItems(table)">
+              +  
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of table">
+          <td *ngFor="let item of getKeys(items)">
+            <div *ngIf="tabId != 11">{{items[item]}}</div>
+            <div *ngIf="tabId == 11">
+              <input type="text" value="{{items[item]}}">
+            </div>
+          </td>
+          <td>
+            <button (click)="removeItems(items)">
+              -
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--<demo-table [date]="table"></demo-table>-->
+  </tab>
+</tabset>

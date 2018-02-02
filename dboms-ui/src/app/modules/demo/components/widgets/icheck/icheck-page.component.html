@@ -1,0 +1,142 @@
+<div class="m-apply">
+  <div class="m-demo-content">
+    <h3>icheck示例</h3>
+    <div class="demo-list">
+      <div class="demo-item">
+        <div class="title">
+          <span>
+            单选
+          </span>
+        </div>
+        <div class="description">
+          <span>
+            正常使用input radio 额外增加属性icheck即可。
+          <br>
+            支持可选属性 disabled,可选事件 click change
+          </span>
+        </div>
+        <div class="code-block">
+          <pre class="code">{{"<"}}input type="radio" icheck [(ngModel)]="xxx" [disabled]="ifDisabled" (onClick)="xxxClick" (onChange)="xxxChange" {{">"}}</pre>
+        </div>
+        <div class="example">
+          <div class="">
+            <table class="demo-table">
+              <tr>
+                <td>
+                  性别：
+                </td>
+                <td>
+                  <label>
+                    <input type="radio" name="gender" [(ngModel)]="gender" id="radio1" #radio1 (onChange)="changeInput(gender,radio1)" (onClick)="clickInput(gender,radio1)" value="1" icheck>
+                    男
+                  </label>
+                </td>
+                <td>
+                  <label>
+                  <input type="radio" name="gender" [(ngModel)]="gender" id="radio2" #radio2 (onChange)="changeInput(gender,radio2)" (onClick)="clickInput(gender,radio2)" value="2" icheck>
+                  女
+                </label>
+                </td>
+                <td>
+                  <label>
+                <input type="radio" name="gender" [(ngModel)]="gender" id="radio3" #radio3 (onChange)="changeInput(gender,radio3)" (onClick)="clickInput(gender,radio3)" value="3" icheck>
+                未知
+              </label>
+                </td>
+                <td>
+
+                </td>
+              </tr>
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <label>
+                <input type="radio" [disabled]="disabled1" name="gender1" [(ngModel)]="gender" value="1" icheck>
+                男
+              </label>
+                </td>
+                <td>
+                  <label>
+                <input type="radio" [disabled]="disabled1" name="gender1" [(ngModel)]="gender" value="2" icheck>
+                女
+              </label>
+                </td>
+                <td>
+                  <label>
+                <input type="radio" disabled="true" name="gender1" [(ngModel)]="gender" value="3" icheck>
+                未知(永久禁用)
+              </label>
+                </td>
+                <td style="padding-left:20px">
+                  <label>禁用：<input type="checkbox" icheck [(ngModel)]="disabled1"></label> &emsp;
+                </td>
+              </tr>
+            </table>
+            手动设置值：<input type="number" style="width:50px" [(ngModel)]="gender" min="0" max="3" step="1" value="1">&nbsp; {{gender}} &nbsp;
+          </div>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="title">
+          <span>
+                复选框:
+              </span>
+        </div>
+        <div class="description">
+          <span>
+                正常使用input checkbox 额外增加属性icheck即可。
+              <br>
+                支持可选属性 disabled-禁用,indeterminate-半选,可选事件 click change
+              </span>
+        </div>
+        <div class="code-block">
+          <pre class="code">{{"<"}}input type="checkbox" icheck [(ngModel)]="xxx" [disabled]="ifDisabled" [indeterminate]="ifIndeterminate" (onClick)="xxxClick" (onChange)="xxxChange" {{">"}}</pre>
+        </div>
+        <div class="example">
+          <table class="demo-table">
+            <tr>
+              <td>
+                <label>
+                <input type="checkbox" icheck [(ngModel)]="isSelected" #checkbox5 id="checkbox5" (onChange)="changeInput(isSelected,checkbox5)" (onClick)="clickInput(isSelected,checkbox5)"> 选择
+              </label> {{isSelected}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+          <input type="checkbox" icheck [disabled]="disabled2" [indeterminate]="indeterminate1" [(ngModel)]="isSelected1"> &nbsp;选择
+          </label>{{isSelected1}}
+                <span style="border:1px solid #fcc;padding: 5px;">
+          <label>禁用：<input type="checkbox" icheck [(ngModel)]="disabled2"></label>
+          <label>半选：<input type="checkbox" icheck [(ngModel)]="indeterminate1"></label>
+          &emsp;
+        </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>不带ngmodel：<input type="checkbox" icheck #checkbox7 id="checkbox7" (onChange)="changeInput(undefined,checkbox7)" (onClick)="clickInput(undefined,checkbox7)" ></label>
+                <label>不带ngmodel：<input type="checkbox" #checkbox8 id="checkbox8" (change)="changeInput(undefined,checkbox8)" (click)="clickInput(undefined,checkbox8)" ></label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>永久禁用：<input type="checkbox" icheck disabled=true></label>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="demo-event-log">
+      <table>
+        <tr *ngFor="let item of logList" [ngClass]="{'first':item.class == 0}" class="log-item fade-in fade-out">
+          <td class="log-event">{{ item?.event }} </td>
+          <td class="log-dom" (mouseenter)="choose(item)" (mouseout)="unchoose(item)"><pre>{{item?.cap}}</pre></td>
+          <td class="value" (mouseenter)="choose(item)" (mouseout)="unchoose(item)">{{ item?.value}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

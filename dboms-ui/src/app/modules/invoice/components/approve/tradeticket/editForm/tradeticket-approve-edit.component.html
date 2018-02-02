@@ -1,0 +1,179 @@
+<div class="content-auto">
+    <div style="padding-top: 62px">
+        <div class="addApply-container">
+            <h1 class="addApply-tit-h1">{{name}}</h1>
+            <div class="m-basic-info">
+                <h2>基本信息</h2>
+                <!--选择类型基础信息 -->
+                <div class="m-table m-table1">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th width="6%"><i class="addApp-form-tips addApp-form-tips1">*</i>申请人</th>
+                        <td width="38%" class="user">
+                            <iq-person-select required [(ngModel)]="person" (ngModelChange)="changePerson(person)" ngDefaultControl [max]="1"></iq-person-select>
+                        </td>
+                        <th width="6%">联系电话</th>
+                        <td width="38%">
+                            <input type="text" [(ngModel)]="tradeTicketInfo.applyPhone">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="6%">部门名称</th>
+                        <td width="38%">
+                            <input type="text" readonly [(ngModel)]="tradeTicketInfo.applyDeptname" readonly>
+                        </td>
+                        <th width="6%">接收平台</th>
+                        <td width="38%">
+                        <select (change)="getPlatForms($event)"  class="form-control">
+                            <option *ngFor="let p of platforms"  [selected]="p.platcode==tradeTicketInfo.platformCode" value="{{p.platcode+'|'+p.platname}}">{{p.platname}}</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="6%">欠款公司代码</th>
+                        <td width="38%">
+                            <select [(ngModel)]="tradeTicketInfo.payee"  class="form-control">
+                                <option value="">请选择欠款公司代码</option>   
+                                <option *ngFor="let p of peyeeList" value="{{p.companycode}}">{{p.companycode}}</option>
+                            </select>
+                        </td>
+                        <th width="6%"><i class="addApp-form-tips addApp-form-tips1">*</i>业务范围代码</th>
+                        <td width="38%">
+                            <select  [(ngModel)]="tradeTicketInfo.businessScope"  class="form-control">
+                                <option value="">请选择业务范围代码</option>   
+                                <option *ngFor="let p of YWFWDMList"  [selected]="p.YWFWDM==tradeTicketInfo.businessScope" value="{{p.YWFWDM}}">{{p.YWFWDM}}</option>
+                                <option [selected]="'0103'==tradeTicketInfo.businessScope" value="0103">0103</option> 
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="6%">付款人</th>
+                        <td width="38%">
+                            <input type="text" [(ngModel)]="tradeTicketInfo.payer">
+                        </td>
+                        <th width="6%"><i class="addApp-form-tips addApp-form-tips1">*</i>商票号</th>
+                        <td width="38%">
+                            <input type="text" [(ngModel)]="tradeTicketInfo.tradeNumber">
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="6%">商票金额</th>
+                        <td width="38%" class="user">
+                            <input type="text" [(ngModel)]="tradeTicketInfo.tradeAmount">
+                        </td>
+                        <th width="6%"><i class="addApp-form-tips addApp-form-tips1">*</i>到期日期</th>
+                        <td width="38%">
+                            <my-datepicker PlaceHolder="请选择日期"  [(ngModel)]="tradeTicketInfo.checkoutDate" style="cursor: pointer;width: 115px;" ></my-datepicker>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="6%">备注</th>
+                        <td width="38%">
+                            <input type="text" [(ngModel)]="tradeTicketInfo.remark">
+                        </td> 
+                    </tr> 
+                    </table> 
+                </div>
+            </div>    
+            <div class="addApply-base money">
+                <div class="m-dialog-head">
+                    <span class="m-dialog-head-change">商票信息：</span>
+                </div>
+                <div class="addApp-base-infor" >
+
+                <div style="width: 98%;padding-left: 25px;padding-top:10px">
+                    <table class="m-info-table" style="width: 98%;">
+                        <thead>
+                            <tr>
+                                <th style="width:120px;text-align:center">客户代码</th>
+                                <th style="text-align:center">客户名称</th>
+                                <th style="text-align:center">关联欠款金额</th>
+                                <th style="text-align:center">系统发票号</th>
+                                <th style="text-align:center">核销凭证号</th>
+                                <th style="text-align:center">核销金额</th>
+                                <th style="text-align:center">合同编号</th>
+                                <th style="text-align:center">合同总金额</th>
+                            </tr>
+                        </thead>
+                        <tbody>    
+                            <tr>
+                                <td style="text-align:center">
+                                    <div class="m-search">
+                                        <i class="iqon-query"  (click)="toQueryCustom()" style="cursor:pointer"></i>
+                                        <input readonly  name="customCode" [(ngModel)]="tradeTicketInfo.customCode" type="text">
+                                    </div>
+                                </td>
+                                <td style="text-align:center"><input readonly type="text" name="customName" [(ngModel)]="tradeTicketInfo.customName"></td>
+                                <td style="text-align:center">
+                                    <div class="m-search">
+                                        <i class="iqon-query"  (click)="toQueryDept()" style="cursor:pointer"></i>
+                                        <input readonly  name="debtAmount" [(ngModel)]="tradeTicketInfo.debtAmount" type="text">
+                                    </div>
+                                </td>    
+                                <td style="text-align:center"><input type="text" name="systicketNum" [(ngModel)]="tradeTicketInfo.systicketNum"></td>
+                                <td style="text-align:center"><input type="text" name="voucherNum" [(ngModel)]="tradeTicketInfo.voucherNum"></td>
+                                <td style="text-align:center"><input type="text" name="voucherAmount" [(ngModel)]="tradeTicketInfo.voucherAmount"></td>
+                                <td style="text-align:center">
+                                    <div class="m-search">
+                                        <i class="iqon-query"  (click)="toQueryContract()" style="cursor:pointer"></i>
+                                        <input readonly  name="contractNum" [(ngModel)]="tradeTicketInfo.contractNum" type="text">
+                                    </div>
+                                </td>
+                                <td style="text-align:center"><input  name="contractAmount" [(ngModel)]="tradeTicketInfo.contractAmount" type="text"></td>
+                            </tr>
+                        </tbody>    
+                    </table>
+                </div>
+             </div>
+    </div>
+    <div class="addApply-base">
+        <div class="m-dialog-head">
+            <span class="m-dialog-head-change"><i class="addApp-form-tips">*</i>附件：</span>
+        </div>
+        <div class="addApp-base-infor">
+            <div class="addApp-up-file">
+                <!--<h2>附件</h2>-->
+                <div class="addApp-file-details">
+                    <ul>
+                        <li *ngFor="let item of attachList">
+                            <i class="iqon-enclosure"></i> {{item.fileName}}
+                            <i class="iqon-close2" (click)="onRemoveFile(item)"></i>
+                        </li>
+                        <li><a href="javascript:;" class="addApp-upload-file"><i class="iqon-enclosure"></i>上传附件<input  id="sellerFile" type="file" ng2FileSelect [uploader]="upLoadECFile" (change)="onUploadFiles(upLoadECFile)" /></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="addApply-base">
+        <div class="m-list-head">
+            <span class="m-dialog-head-change">审批人信息</span>
+        </div>
+        <div class="addApp-base-infor">
+            <div class="addApp-base-list">
+                        <li class="addApp-form-item w-full" style = "margin:0;" *ngIf="tradeTicketInfo.platformCode=='21'">
+                        <label class="addApp-form-label">商务审批人</label>
+                        <div class="addApp-form-right">
+                            <div class="m-user-info"  user-image  [hasClose]="false" [user] = "p"  *ngFor = "let p of bassinApproveList"></div>
+                        </div>
+                    </li>
+                    <li class="addApp-form-item w-full" style = "margin:0;">
+                        <label class="addApp-form-label">财务审批人</label>
+                        <div class="addApp-form-right">
+                            <div class="m-user-info"  user-image  [hasClose]="false" [user] = "p"  *ngFor = "let p of finaceApproveList"></div>
+                        </div>
+                    </li>
+            </div>
+        </div> 
+    </div>    
+    <div class="addApp-submit-btn">
+        <div class="addApp-sub-btns">
+            <button class="m-btn-confirm" *ngIf="submitFlag" (click)="updateTradeticket()">提交</button>
+            <button class="m-btn-confirm" *ngIf="!submitFlag" disabled>提交中...</button>
+            <button class="m-btn-sketch" type="button" (click)="goback()">关闭</button>          
+        </div>
+    </div>
+</div>
+</div>
+</div>
+

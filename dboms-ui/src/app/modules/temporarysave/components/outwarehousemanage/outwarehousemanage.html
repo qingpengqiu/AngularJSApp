@@ -1,0 +1,145 @@
+<div class="m-home-pageR clearfix">
+                <!--菜单-->
+                <div class="m-boardtop clearfix">
+                    <div class="m-crumb">
+                        <ul>
+                            <li class="marginr30" (click)="getapply()" style="cursor:pointer"><a [ngClass]="{'m-li-active':myApplyShow}">我的申请</a><span class="m-nums">5</span></li>
+                            <li (click)="getapprove()" style="cursor:pointer"><a [ngClass]="{'m-li-active':myApproveShow}">我的审批</a></li>
+                        </ul>
+                    </div>
+                    <div class="m-dropdown g-fr">
+                        <button class="m-btn-main-2">+ 新建申请</button>
+                        <ul class="m-dropdown-option">
+                            <li>
+                                <i class="iqon-direct-right"></i>
+                                <a [routerLink]="['/bill/creat']" style="color:#4cc9a7" target="_blank">新建申请</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/bill/return-new']" style="color:#4cc9a7" target="_blank">新建退换货申请</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--搜索-->
+                <div class="m-list-menu" *ngIf="myApplyShow">
+                    <ul class="m-state">
+                        <li [ngClass]="{'active':applyType==1}" (click)="changeapplytype(1)">审批中</li>
+                        <li [ngClass]="{'active':applyType==2}" (click)="changeapplytype(2)">草稿</li>
+                        <li [ngClass]="{'active':applyType==3}" (click)="changeapplytype(3)">驳回</li>
+                        <li [ngClass]="{'active':applyType==4}" (click)="changeapplytype(4)">归档</li>
+                    </ul>
+                    <div class="m-search-all">
+                        <div class="m-seach-radio">
+                          <input icheck type="radio" id="radio1" name="gender" checked>
+                          <label for="radio1">申请单</label>
+                          <input icheck type="radio" id="radio2" name="gender">
+                          <label for="radio2">物料</label>
+                        </div>
+                        <div class="m-search">
+                            <i class="iqon-query" (click)=getmMessageList(InvoicePeopleITCode) style="cursor:pointer"></i>
+                            <input name="state" placeholder="搜索单据号..." [(ngModel)]=InvoicePeopleITCode type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="m-list-menu" *ngIf="myApproveShow">
+                    <ul class="m-state">
+                        <li [ngClass]="{'active':approveType==1}" (click)="changeapprovetype(1)">待我审批</li>
+                        <li [ngClass]="{'active':approveType==2}" (click)="changeapprovetype(2)">我已审批</li>
+                        <li [ngClass]="{'active':approveType==3}" (click)="changeapprovetype(3)">全部</li>
+                    </ul>
+                    <div class="m-search-all">
+                        <div class="m-search">
+                            <i class="iqon-query" (click)=getmMessageList(InvoicePeopleITCode) style="cursor:pointer"></i>
+                            <input name="state" placeholder="搜索单据号..." [(ngModel)]=InvoicePeopleITCode type="text">
+                        </div>
+                    </div>
+                </div>
+                <!--list渲染-->
+                <div class="m-table-right" *ngIf="myApplyShow">
+                   <!-- 物料数据缺省 -->
+                    <div class="m-noresult" *ngIf="myApplyEmpty">
+                        <div class="m-noresult-msg">
+                          <i class="iqon-query"></i>
+                          <p class="m-noresult-notice">很抱歉，没有找到与<span>“4829374”</span>相关的信息</p>
+                          <p class="m-p-notice">温馨提示：请检查您输入的是否正确</p>
+                        </div>
+                    </div>
+                    <!-- 物料list -->
+                    <section>
+                        <div class="m-list-singlebox" *ngFor="let item of datalist">
+                            <div class="top">
+                                <div class="topleft">
+                                <span class="marginr30 m-bottom-gray">{{item.date}}</span>
+                                <span class="m-bottom-gray">申请单号：
+                                    <span class="m-bottom-black">{{item.applyorder}}</span>
+                                </span>
+                                </div>
+                                <div><i class="iqon-person marginr8"></i>
+                                    <span class=" m-bottom-black">{{item.usernamecn}}</span>
+                                    <span class=" m-bottom-gray">{{item.usernameen}}</span>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <div class="bottomname">{{item.company}}</div>
+                                <div class="m-page">
+                                    <div class="pagebox">
+                                        <div class="m-bottom-gray">
+                                            <span>暂</span>
+                                            <span>存</span>
+                                            <span>类</span>
+                                            <span>别</span>
+                                        </div>
+                                        <span class="pagebox-span">{{item.zc_class}}</span>
+                                    </div>
+                                    <div class="pagebox">
+                                        <div class="m-bottom-gray">
+                                            <span>暂</span>
+                                            <span>存</span>
+                                            <span>原</span>
+                                            <span>因</span>
+                                        </div>
+                                        <span class="pagebox-span">{{item.zc_reason}}</span>
+                                    </div>
+                                </div>
+                                <div class="m-page">
+                                    <div class="pagebox">
+                                        <div class="m-bottom-gray">
+                                            <span>入</span>
+                                            <span>库</span>
+                                            <span>房</span>
+                                            <span>号</span>
+                                        </div>
+                                        <span class="pagebox-span">{{item.facnum}}</span>
+                                    </div>
+                                    <div class="pagebox">
+                                        <div class="m-bottom-gray">
+                                            <span>工</span>
+                                            <span>厂</span>
+                                        </div>
+                                        <span class="pagebox-span"> {{item.fac}}</span>
+                                    </div>
+                                    <div class="pagebox">
+                                        <div class="m-bottom-gray">
+                                            <span>单</span>
+                                            <span>据</span>
+                                            <span>号</span>
+                                        </div>
+                                        <span class="pagebox-span">{{item.simplenum}}</span>
+                                    </div>
+                                </div>
+                                <div class="m-page4"><i class="iqon-audit2 marginr8 fontsize14"></i>事业部经理审批</div>
+                                <div class="m-page5 margin8 color-yelow fontsize14">{{item.status}}</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="m-table-right" *ngIf="myApproveShow">
+                  <div class="m-noresult" *ngIf="myApproveEmpty">
+                    <div class="m-noresult-msg">
+                      <i class="iqon-query"></i>
+                      <p class="m-noresult-notice">很抱歉，没有找到与<span>“4829374”</span>相关的信息</p>
+                      <p class="m-p-notice">温馨提示：请检查您输入的是否正确</p>
+                    </div>
+                  </div>
+                </div>
+            </div>

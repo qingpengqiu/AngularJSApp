@@ -1,0 +1,13 @@
+<table>
+    <tbody>
+        <tr *ngFor="let table of table">
+            <td>
+                <div *ngIf="table.RRYID">{{table.RRYID}}</div>
+                <div *ngIf="!table.RRYID">
+                    <input type="text">
+                </div>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
